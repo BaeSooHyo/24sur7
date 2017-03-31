@@ -1,0 +1,178 @@
+/*_________________________________________________________________
+
+			RE-INITIALISATION DES TAGS HTML
+	Pour éviter les valeurs par défaut différentes suivant les
+	navigateurs. Seuls les tags le plus	souvent utilisés et non
+	dépréciés sont pris en compte.
+	Reset complet : http://meyerweb.com/eric/tools/css/reset/
+__________________________________________________________________
+*/
+html, body, div, span, applet, iframe,
+h1, h2, h3, h4, h5, h6, p, pre,
+a, img, strong, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	font-weight: normal;
+	vertical-align: baseline;
+	background: transparent;
+	}
+body {
+	line-height: 1;
+	}
+ol, ul {
+	list-style: none;
+	}
+/*
+__________________________________________________________________
+
+				FEUILLE DE STYLES ORIGINALE
+__________________________________________________________________
+*/
+body {
+	font: 13px/1.4 Verdana, Arial, Sans-Serif;
+  	color: #404040;
+	background: #9ac5e7 url(../images/fond.jpg) repeat;
+	}
+
+#bcPage {
+	background-color: #EFF6FF;
+	border-left: 2px solid #8ABCFD;
+	border-right: 2px solid #8ABCFD;
+	margin: 0 auto;
+	padding: 10px;
+	width: 780px;
+	text-align: justify;
+	}
+
+h1, h2, h3 {
+	font-weight: bold;
+	margin: 1em 0;
+	}
+
+h1 { font-size: 21px; }
+h2 {
+	font-size: 18px;
+	border-bottom: 2px solid #FF9B37;
+	}
+h3 {
+	font-size: 15px;
+	margin-left: 1em;
+	}
+
+p { margin: 1em 0 1em 2em; }
+
+strong { font-weight: bold; }
+
+a {
+	font-weight: bold;
+	text-decoration: none;
+	color: #3C96F1;
+	}
+
+a:hover { text-decoration: underline; }
+
+.lienExterne {
+	background: url(../images/lien_externe.gif) no-repeat right;
+	padding-right: 20px;
+	}
+
+ul {
+	margin: 1em 0 1em 5em;
+	}
+li {
+	background: url(../images/puce.png) no-repeat;
+	padding-left: 16px;
+}
+
+#ulMenu {
+	margin: 0 0 2em 0;
+	}
+#ulMenu ul {
+	margin: 0 0 0 3em;
+	}
+#ulMenu ul li {
+	margin: 0.5em 0;
+	}
+
+#bcUsers img {
+	height: 50px;
+	width: 50px;
+	margin: 0 14px;
+	}
+
+#bcCompo {
+	position: relative;
+	width: 410px;
+	margin: 0 auto;
+	height: 250px;
+	}
+#imgReseau {
+	position: absolute;
+	height: 124px;
+	width: 167px;
+	left: 0;
+	top: 25px;
+	}
+#imgLecteur {
+	position: absolute;
+	height: 128px;
+	width: 103px;
+	left: 150px;
+	top: 120px;
+	}
+#imgCalendrier {
+	position: absolute;
+	height: 120px;
+	width: 120px;
+	left: 265px;
+	top: 50px;
+	}
+#imgAgenda {
+	position: absolute;
+	height: 120px;
+	width: 120px;
+	left: 145px;
+	top: 0px;
+	}
+#imgBandeau {
+	float: right;
+	margin-right: -58px;
+	margin-left: 10px;
+	border: solid 2px #8ABCFD;
+	height: 315px;
+	width: 96px;
+}
+
+#imgUSB1 {
+	height: 117px;
+	width: 120px;
+	float: left;
+	margin-top: -15px;
+	margin-right: 5px;
+	}
+#imgUSB2 {
+	height: 117px;
+	width: 121px;
+	float: right;
+	margin-top: -15px;
+	margin-left: 5px;
+	}
+
+#pied {
+	border-top: 2px solid #8ABCFD;
+	margin: 2em 0 0 0;
+	padding-top: 10px;
+	text-align: center;
+	position: relative;
+	left: -10px;
+	width: 800px;
+	}
+
+.clear {
+	clear: both;
+}
