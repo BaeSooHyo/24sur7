@@ -4,7 +4,7 @@ include('bibli_24sur7.php');
 
 if (! isset($_POST['btnRechercher']))
 {
-	// On n'est dans un premier affichage de la page.
+	// On est dans un premier affichage de la page.
 	// => On intialise les zones de saisie.
   $motsCles = '';
 
@@ -23,4 +23,4 @@ if (isset($GLOBALS['bd'])){
     mysqli_close($GLOBALS['bd']);
 }
 
- ?>
+?>

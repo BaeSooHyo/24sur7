@@ -4,7 +4,7 @@ include('bibli_24sur7.php');
 fd_bd_connexion();
 
 if (! isset($_POST['btnValider'])) {
-	// On n'est dans un premier affichage de la page.
+	// On est dans un premier affichage de la page.
 	// => On intialise les zones de saisie.
 	$nbErr = 0;
 	$_POST['txtNom'] = $_POST['txtMail'] = '';
@@ -42,21 +42,23 @@ if ($nbErr > 0) {
 }
 
 // Affichage du formulaire
+
+$size = 25;
 echo '<form method="POST" action="../php/inscription.php">',
-    '<div id="formulaire">',
+    '<div class="formulaire">',
 		'<table border="1" cellpadding="4" cellspacing="0">',
 		fd_form_ligne('Nom',
-            fd_form_input(APP_Z_TEXT,'txtNom', $_POST['txtNom'], 40)),
+            fd_form_input(APP_Z_TEXT,'txtNom', $_POST['txtNom'], $size	 ,100)),
 		fd_form_ligne('Email',
-            fd_form_input(APP_Z_TEXT,'txtMail', $_POST['txtMail'], 40)),
+            fd_form_input(APP_Z_TEXT,'txtMail', $_POST['txtMail'], $size ,150)),
 		fd_form_ligne('Mot de passe',
-            fd_form_input(APP_Z_PASS,'txtPasse', '', 20)),
+            fd_form_input(APP_Z_PASS,'txtPasse', '', $size ,50)),
         fd_form_ligne('Retapez votre mot de passe',
-            fd_form_input(APP_Z_PASS,'txtVerif', '', 20)),
+            fd_form_input(APP_Z_PASS,'txtVerif', '', $size ,50)),
         fd_form_ligne(fd_form_input(APP_Z_SUBMIT,'btnValider', 'Je m\'inscris'),
                       fd_form_input(APP_Z_RESET,'btnAnnuler', 'Annuler')),
     '</table></div></form>',
-    'D&eacute;j&agrave; inscrit ? Alors <a href="../php/connexion.php">identifiez-vous !</a><br>',
+    'D&eacute;j&agrave; inscrit ? Alors <a href="../php/connexion.php">identifiez-vous !</a><br><br>',
     'Vous h&eacute;sitez &agrave; vous inscrire ? Laissez-vous s&eacute; par
     <a href=\'../html/presentation.html\'>une pr&eacute;sentation</a>
     des possibilit&eacute; de 24sur7';
@@ -183,7 +185,7 @@ function fdl_add_utilisateur() {
 	// Déconnexion de la base de données
     mysqli_close($GLOBALS['bd']);
 
-	header ('location: ../php/agenda.php');
+	header ('location: agenda.php');
 	exit();			// EXIT : le script est terminé
 }
 

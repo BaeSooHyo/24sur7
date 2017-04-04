@@ -36,7 +36,9 @@ define('APP_Z_TEXT', 'text');
 define('APP_Z_PASS', 'password');
 define('APP_Z_SUBMIT', 'submit');
 define('APP_Z_RESET', 'reset');
+define('APP_Z_CHECKBOX', 'checkbox');
 
+define('JOURS_SEMAINE', array('lundi','mardi','mercredi','jeudi','vendredi','samedi','dimande'));
 
 
 
@@ -55,7 +57,7 @@ define('APP_Z_RESET', 'reset');
 * @return string	Le code HTML de la ligne du tableau
 */
 function fd_form_ligne($gauche, $droite) {
-	return "<tr><td>{$gauche}</td><td  id='alignleft'>{$droite}</td></tr>";
+	return "<tr><td>{$gauche}</td><td  class='alignleft'>{$droite}</td></tr>";
 }
 
 //_______________________________________________________________
@@ -69,16 +71,31 @@ function fd_form_ligne($gauche, $droite) {
 *
 * @return string	Le code HTML de la zone de formulaire
 */
-function fd_form_input($type, $name, $value, $size=0) {
+function fd_form_input($type, $name, $value, $size=0, $length=0) {
 	$value = htmlentities($value, ENT_QUOTES, 'UTF-8');
 	$size = ($size == 0) ? '' : "size='{$size}'";
+	$length = ($length == 0) ? '' : "maxlength='{$length}'";
 	if ( $type == APP_Z_SUBMIT || ($type == APP_Z_RESET) )
 	{
 		return "<input type='{$type}' id='{$name}' name='{$name}' {$size} value=\"{$value}\" class='btn'>";
 	}
 	else {
-		return "<input type='{$type}' id='{$name}' name='{$name}' {$size} value=\"{$value}\">";
+		return "<input type='{$type}' id='{$name}' name='{$name}' {$size} {$length} value=\"{$value}\">";
 	}
+}
+
+function fd_form_checkboxes($names, $nbRows = 0)
+{
+
+	$len = count($names);
+	echo	'<table>';
+	for ($i = 0; $i<$len; $i++)
+	{
+		if ($i % $nbRows === 0){echo '<tr>';}
+		echo '<td><input type="',APP_Z_CHECKBOX, "\"name='$names[$i]' value='$names[$i]'><label for='$names[$i]'>$names[$i]</label></td>";
+		if ($i % $nbRows === 0){echo '</tr>';}
+	}
+	echo '</table>';
 }
 
 //_______________________________________________________________

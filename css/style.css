@@ -1,10 +1,10 @@
 /* ---------------------------------------------------------------
 			RE-INITIALISATION DES TAGS HTML
-	Pour éviter les valeurs par défaut différentes suivant les 
-	navigateurs. Seuls les tags le plus	souvent utilisés et non 
-	dépréciés sont pris en compte.
+	Pour ï¿½viter les valeurs par dï¿½faut diffï¿½rentes suivant les
+	navigateurs. Seuls les tags le plus	souvent utilisï¿½s et non
+	dï¿½prï¿½ciï¿½s sont pris en compte.
 	Reset complet : http://meyerweb.com/eric/tools/css/reset/
---------------------------------------------------------------- */ 
+--------------------------------------------------------------- */
 html, body, div, span, applet, iframe,
 h1, h2, h3, h4, h5, h6, p, pre,
 a, img, strong, dl, dt, dd, ol, ul, li,
@@ -15,48 +15,48 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	border: 0;
 	outline: 0;
 	font-size: 100%;
-	font-weight: normal;	
+	font-weight: normal;
 	vertical-align: baseline;
 	background: transparent;
 	}
 body {
 	line-height: 1;
-	}	
+	}
 ol, ul {
 	list-style: none;
 	}
-table { 
+table {
 	border-collapse: collapse;
 	border-spacing: 0;
 	}
-	
+
 /* ---------------------------------------------------------------
-	FEUILLE DE STYLE ORIGINALE	
+	FEUILLE DE STYLE ORIGINALE
 --------------------------------------------------------------- */
 html {
 	height: 100%
 	}
-	
+
 body {
 	font-family: Verdana, Arial, Sans-Serif;
 	font-size: 13px;  /*10pt;	*/
   	color: #404040;
-	background: #9ac5e7 url(../images/fond.jpg);  	
+	background: #9ac5e7 url(../images/fond.jpg);
 	}
-	
+
 p {
-	padding: 10px 5px;	
+	padding: 10px 5px;
 }
 
 a {
 	color: #3c96f1;
 	text-decoration: none;
 }
-	
+
 a:hover {
 	text-decoration: underline;
 }
-	
+
 strong {
 	font-weight: bold;
 }
@@ -69,12 +69,12 @@ strong {
 }
 
 
-	
+
 /* ---------------------------------------------------------------
 	BLOC ENTETE
 --------------------------------------------------------------- */
 #bcEntete {
-	background: url(../images/tete.png) no-repeat; 
+	background: url(../images/tete.png) no-repeat;
 	height: 135px;
 	position: relative;
 }
@@ -88,7 +88,7 @@ strong {
 	left: 30px;
 }
 
-	
+
 #btnDeconnexion {
 	background: url(../images/deconnexion.png) no-repeat;
 	height: 36px;
@@ -97,21 +97,21 @@ strong {
 	right: 30px;
 	top: 10px;
 }
-	
-	
-#bcOnglets { 
+
+
+#bcOnglets {
 	position: absolute;
 	left: 321px;
 	top: 5px;
 }
-	
+
 #bcOnglets a,
 #bcOnglets h2 {
-	text-decoration: none; 
+	text-decoration: none;
     text-align: center;
-	font: bold 16px Verdana;    
-	color: #757575; 
-	background: url(../images/onglet_off.png) no-repeat; 
+	font: bold 16px Verdana;
+	color: #757575;
+	background: url(../images/onglet_off.png) no-repeat;
 	float: left;
 	width: 158px;
 	height: 24px;
@@ -119,18 +119,18 @@ strong {
 	padding-top: 7px;
 }
 
-#bcOnglets a:hover { 
-	color: #ff9b37; 
+#bcOnglets a:hover {
+	color: #ff9b37;
 }
 
 #bcOnglets h2 {
-	background: url(../images/onglet_on.png) no-repeat; 
+	background: url(../images/onglet_on.png) no-repeat;
 	color: #ff9b37;
 	height: 27px;
 }
-	
 
-	
+
+
 /* ---------------------------------------------------------------
 	BLOC PIED DE PAGE
 --------------------------------------------------------------- */
@@ -138,46 +138,46 @@ strong {
 	position: relative;
 	clear: both;
 	height: 156px;
-	background: transparent url(../images/pied.png) no-repeat;		
+	background: transparent url(../images/pied.png) no-repeat;
 	}
 
 #bcPied a {
-	text-decoration: none; 
-	font: 14px Verdana;    
-	color: #404040; 
+	text-decoration: none;
+	font: 14px Verdana;
+	color: #404040;
 	position: absolute;
 	background: transparent url(../images/fleche_pied.png) no-repeat;
 	padding-left: 22px;
 	height: 22px;
 	}
-	
-#apropos {	
+
+#apropos {
 	left: 198px;
 	top: 55px;
-	}		
+	}
 
-#confident {	
+#confident {
 	left: 360px;
 	top: 75px;
 	}
-		
-#conditions {	
+
+#conditions {
 	left: 598px;
 	top: 95px;
 	}
-	
+
 #bcPied a:hover {
 	text-decoration: underline;
-	color: #000; 
+	color: #000;
 	}
-	
+
 #copyright {
-	font: 14px Verdana;    
-	position: absolute;	
+	font: 14px Verdana;
+	position: absolute;
 	left: 792px;
 	top: 55px;
 	}
-	
+
 
 
 /* ---------------------------------------------------------------
@@ -192,7 +192,7 @@ strong {
 }
 
 #bcGauche {
-	float: left;	
+	float: left;
 	width: 250px;
 	margin: 10px 10px;
 }
@@ -200,28 +200,28 @@ strong {
 #bcCentre {
 	position: relative;
 	display: block;
-	margin-left: 250px;	
+	margin-left: 250px;
 }
 
 /* ---------------------------------------------------------------
 	BLOC FORMULAIRE
 --------------------------------------------------------------- */
-#formulaire {
+.formulaire {
 	text-align: right;
 	padding: 1px;
 	margin-bottom: 20px;
-}	
-
-#formulaire table {
-	width: auto;
-	margin: 10px auto;	
 }
 
-#formulaire td {
+.formulaire table {
+	width: auto;
+	margin: 10px auto;
+}
+
+.formulaire td {
 	padding: 5px;
 }
 
-#alignleft {
+.alignleft {
 	text-align: left
 }
 
@@ -245,34 +245,34 @@ strong {
 	text-align: center;
 	padding: 1px;
 	margin-bottom: 20px;
-}	
+}
 
 #calendrier table {
 	width: auto;
-	margin: 10px auto;	
+	margin: 10px auto;
 }
 
 #calendrier p {
 	background-color: #FFF;
 	text-align: center;
 	margin-bottom: 5px;
-	padding: 10px;		
+	padding: 10px;
 }
 
 #calendrier td a {
 	display: block;
 	width: 30px;
-	height: 22px; 	
+	height: 22px;
 	padding-top: 7px;
-	color: #000000;	
+	color: #000000;
 }
 
 #calendrier a:hover {
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 #calendrier a.lienJourHorsMois {
-	color: #999999;	
+	color: #999999;
 }
 
 #calendrier th {
@@ -282,27 +282,27 @@ strong {
 
 #calendrier td {
 	border: solid 1px #000000;
-	color: #000000;	
-} 
+	color: #000000;
+}
 
 .flechegauche {
 	float: left;
 	width: 20px;
-	height: 20px;	
+	height: 20px;
 }
 
 .flechedroite {
 	float: right;
 	width: 20px;
-	height: 20px;	
+	height: 20px;
 }
 
 .aligncenter {
-	text-align:center;	
+	text-align:center;
 }
 
 .jourCourant {
-	background-color: #5555FF;	
+	background-color: #5555FF;
 }
 
 .semaineCourante {
@@ -328,41 +328,41 @@ strong {
 
 #categories h3 {
 	background-color: #9ac5e7;
-	padding: 10px;	
+	padding: 10px;
 	font-weight: bold;
 	font-size: 13px;  /*10pt;	*/
 	text-align: center;
 }
 
 #categories p {
-	padding: 10px 10px 5px 10px;	
+	padding: 10px 10px 5px 10px;
 }
 
 #categories ul {
 	margin-bottom: 10px;
 }
-	
+
 #categories li {
-	padding-top: 2px; 	
-}	
+	padding-top: 2px;
+}
 
 .categorie {
- 	float: left; 
-	margin: 0px 5px 0px 20px; 
-	width: 10px; 
-	height: 10px; 
-}							  				 
+ 	float: left;
+	margin: 0px 5px 0px 20px;
+	width: 10px;
+	height: 10px;
+}
 
 .groupeA {
-	border: solid 2px #00DD00; 
+	border: solid 2px #00DD00;
 	background-color: #00FF00;
 }
 .groupeB {
-	border: solid 2px #DD0000; 
+	border: solid 2px #DD0000;
 	background-color: #FF0000;
 }
 .groupeC {
-	border: solid 2px #0000DD; 
+	border: solid 2px #0000DD;
 	background-color: #0000FF;
 }
 
@@ -374,11 +374,11 @@ strong {
 	display: block;
 	color: #000;
 	font-size: 11px; /*8pt;*/
-	position: absolute; 
-    margin: 1px; 
-    padding: 2px 0px 0px 2px; 
+	position: absolute;
+    margin: 1px;
+    padding: 2px 0px 0px 2px;
     color: #000000;
-    width: 104px; 							          
+    width: 104px;
 }
 
 
@@ -387,79 +387,91 @@ strong {
 --------------------------------------------------------------- */
 #titreAgenda {
 	text-align: center;
-	width: 672px; 
-	margin: 0 auto; 
+	width: 672px;
+	margin: 0 auto;
 	padding-left: 30px;
 }
 
-#agenda { 
+#agenda {
  	position: relative;
  	margin: 0 auto 0px auto;
  	width: 746px;
  	height: 540px;
- } 
- 
-#agenda a { 
- 	color: #FFFFFF; 
+ }
+
+#agenda a {
+ 	color: #FFFFFF;
  	text-decoration: none;
 	display: block;
-	height: 40px; 
+	height: 40px;
 	background-color: transparent;
-	border-bottom: dashed 1px #5555FF;	
+	border-bottom: dashed 1px #5555FF;
 }
 
 #agenda a.case-heure-bas {
 	border-bottom: none;
 }
 
-#agenda a:hover { 
-	color: #FFFFFF; 
+#agenda a:hover {
+	color: #FFFFFF;
 	text-decoration: underline;
 	background-color: #9ac5e7;
 }
 
-#intersection { 
-	float: left; 
-	height: 15px; 
-	width: 30px; 
+#intersection {
+	float: left;
+	height: 15px;
+	width: 30px;
 }
 
-#col-heures { 
+#col-heures {
 	float: left;
 	width: 30px;
 }
 
-#col-heures div { 
-	height: 41px; 
+#col-heures div {
+	height: 41px;
 	font-size: 9px;  /*7pt; */
-	right: 0px; 
+	right: 0px;
 	padding-right: 1px;
-	text-align: right; 
+	text-align: right;
 }
 
-.border-TRB {	
-	border-top: solid 2px #5555FF; 
-	border-right: solid 2px #5555FF; 
-	border-bottom: solid 2px #5555FF; 
-}
- 
-.border-L { 
-	border-left: solid 2px #5555FF; 
+.border-TRB {
+	border-top: solid 2px #5555FF;
+	border-right: solid 2px #5555FF;
+	border-bottom: solid 2px #5555FF;
 }
 
-.col-jour { 
-	margin-top: 1px; 
-	float: left; 
-	width: 112px; 
+.border-L {
+	border-left: solid 2px #5555FF;
 }
 
-.case-jour { 
+.col-jour {
+	margin-top: 1px;
+	float: left;
+	width: 112px;
+}
+
+.case-jour {
 	background-color: #5555FF;
-	float: left; 
-	width: 112px; 
-	height: 20px; 
+	float: left;
+	width: 112px;
+	height: 20px;
 	padding-top: 2px;
-	text-align: center; 
+	text-align: center;
 	color: #FFF;
 }
 
+h3
+{
+	font-weight: bold;
+	text-align: left;
+}
+
+h3 hr
+{
+	border: none;
+	height: 2px;
+	background-color: #1E1E1E;
+}
