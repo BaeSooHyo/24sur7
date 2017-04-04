@@ -475,3 +475,8 @@ h3 hr
 	height: 2px;
 	background-color: #1E1E1E;
 }
+
+input
+{
+	margin-right: 5px;
+}

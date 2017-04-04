@@ -25,7 +25,7 @@ echo '<form method="POST" action="../php/inscription.php">',
     '</table></div></form>';
 
 echo '<h3>Options d\'affichage du calendrier<hr></h3>',
-  '<form method="POST" action="../php/inscription.php">',
+  '<form method="POST" action="../php/parametres.php">',
       '<div class="formulaire">',
   		'<table border="1" cellpadding="4" cellspacing="0">',
       fd_form_ligne('Jours affichés', fd_form_checkboxes(JOURS_SEMAINE, 3)),
