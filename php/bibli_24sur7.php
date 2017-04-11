@@ -147,6 +147,40 @@ function fd_form_date($name, $jsel=0, $msel=0, $asel=0){
 
 //_______________________________________________________________
 /**
+* Fonction afichant deux �l�ments de s�lecion avec les pr�-s�lectionn�s
+*
+*
+* @param string		$nom	Préfixe pour les noms des zones
+* @param integer	$hsel 	l'heure s�lectionn�e par d�faut
+* @param integer	$msel 	les minutes s�lectionn�es par d�faut
+*
+* @return string 	Le code HTML des 2 zones de liste
+*/
+function pb_form_heure($name, $hsel=0, $msel=0){
+	$hsel=(int)$hsel;
+	$msel=(int)$msel;
+
+	$res = "<select id='{$name}_H' name='{$name}_H'>";
+	for ($i=0; $i <= 23 ; $i++){
+		if ($i == $hsel)
+			$res .= "<option value='$i' selected>$i</option>";
+		else
+			$res .= "<option value='$i'>$i</option>";
+	}
+	$res .= "</select> <select id='{$name}_M' name='{$name}_M'>"; //l'espace entre les balises  </select> et <select> est utile
+	for ($i=0; $i <= 59 ; $i++){
+		if ($i == $msel)
+			$res .= "<option value='$i' selected>$i</option>";
+		else
+			$res .= "<option value='$i'>$i</option>";
+	}
+	$res .= '</select> ';
+
+	return $res;
+}
+
+//_______________________________________________________________
+/**
 * Vérifie la présence des variables de session indiquant qu'un utilisateur est connecté.
 * Cette fonction est à appeler au début des scripts des pages nécessitant une authentification
 * de l'utilisateur
