@@ -28,7 +28,7 @@ if (isset($GLOBALS['bd'])){
 //-----------------------------------------------------
 // Affichage de la page
 //-----------------------------------------------------
-fd_html_head('24sur7 | Inscription','../css/style.css');
+fd_html_head('24sur7 | Inscription');
 fd_html_bandeau('-');
 echo '<section id="bcContenu"><div class="aligncenter">';
 echo '<p>Pour vous inscrire &agrave; <b>24sur7</b>, veuillez remplir le formulaire ci-dessous</p>';

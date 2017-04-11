@@ -333,7 +333,7 @@ function fd_bd_erreurExit($msg) {
  * @param string	$titre		Titre de la page
  * @param string	$css		url de la feuille de styles liée
  */
-function fd_html_head($titre, $css = '../styles/style.css') {
+function fd_html_head($titre, $css = '../css/style.css') {
 	if ($css == '-') {
 		$css = '';
 	} else {

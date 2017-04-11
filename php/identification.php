@@ -1,8 +1,8 @@
 <?php
 
-//TODO gérer la connexion (mail présent dans la base de donnée)
+//TODO gï¿½rer la connexion (mail prï¿½sent dans la base de donnï¿½e)
 /**
-* 
+*
 *Page d'identification
 */
 // Bufferisation des sorties
@@ -13,21 +13,21 @@ include('bibli_24sur7.php');
 
 	//_______________________________________________________________
 	/**
-	* Effectue les vérifications de saisie et de connexion
+	* Effectue les vï¿½rifications de saisie et de connexion
 	*
-	* @return array 	tableau des erreurs détectées
+	* @return array 	tableau des erreurs dï¿½tectï¿½es
 	*/
 	function pbl_verif_co()
 	{
 		$bd = fd_bd_connexion();
 
-		//On fait les vérifications des données
+		//On fait les vï¿½rifications des donnï¿½es
 		$er = array();
 		$Mail = $_POST['txtMail'];
 		$Passe = $_POST['txtPasse'];
-		
+
 		//Mail
-		if ( (strlen($Mail)) == 0) 
+		if ( (strlen($Mail)) == 0)
 		{
 			array_push($er, "L'adresse mail est obligatoire<br>");
 		}
@@ -35,57 +35,57 @@ include('bibli_24sur7.php');
 		{
 			array_push($er, "L'adresse mail n'est pas valide <br>");
 		}
-		
-		$Mail = (mysqli_real_escape_string($GLOBALS['bd'], $Mail)) ; 
-		
-		//On vérifie si l'adress mail est  présente dans notre base de données
+
+		$Mail = (mysqli_real_escape_string($GLOBALS['bd'], $Mail)) ;
+
+		//On vï¿½rifie si l'adress mail est  prï¿½sente dans notre base de donnï¿½es
 		$sql = 'SELECT  *
 			FROM utilisateur
 			WHERE utiMail= "'.$Mail .'"';
-			
+
 		$res = mysqli_query($GLOBALS['bd'], $sql) OR fd_bd_erreur($sql);
 		$enr = mysqli_fetch_assoc($res);
-		
+
 		if ($enr['utiMail'] == NULL)
 		{
 			array_push($er, "Cette adresse mail n'est pas inscrite sur notre site.<br>");
 		}
-		if ( ($enr['utiMail'] != NULL) && ($enr['utiPasse'] != (md5($Passe)) ) ) 
+		if ( ($enr['utiMail'] != NULL) && ($enr['utiPasse'] != (md5($Passe)) ) )
 		{
 			array_push($er, "Le mot de passe ne correspond pas &agrave; cette adresse mail.<br>");
 		}
-		
+
 		mysqli_free_result($res);
 		mysqli_close($GLOBALS['bd']);
-		
+
 		return $er;
 	}
 
 	$erreurs = array();
 	$Mail = "";
 	$Passe = "";
-	
-	if($_POST['btnIdentifier'])
+
+	if(isset($_POST['btnIdentifier']))
 	{
 		$Mail = $_POST['txtMail'];
 		$Passe = $_POST['txtPasse'];
 		$erreurs = pbl_verif_co();
 
-		//L'utilisateur est connecté
-		if ( $erreurs == NULL) 
+		//L'utilisateur est connectï¿½
+		if ( $erreurs == NULL)
 		{
-			echo "Vous êtes connecté.";
+			echo "Vous ï¿½tes connectï¿½.";
 			session_start();
 			//$_SESSION['utiID'] = $enr['utiID'];
 			//$_SESSION['utiNom'] = $enr['utiNom'];
-			
+
 			header ('location: agenda.php');
-			exit();	
+			exit();
 		}
 
-		
+
 	}
-	else 
+	else
 	{
 
 		$Mail = "";
@@ -95,7 +95,7 @@ include('bibli_24sur7.php');
 // Si on est encore lÃ , c'est que l'utilisateur est bien authentifiÃ©.
 fd_html_head('Identification | 24sur7');
 
-//On affiche le bandeau sans les onglets 
+//On affiche le bandeau sans les onglets
 fd_html_bandeau(0, '-');
 
 
@@ -114,11 +114,11 @@ echo '<main id="bcContenu">',
 				'</table>',
 				'</div>',
 			'</form>';
-			
-	//Si il y a des erreurs, on les affiches après le formulaire
-	if ( $erreurs != NULL) 
+
+	//Si il y a des erreurs, on les affiches aprï¿½s le formulaire
+	if ( $erreurs != NULL)
 	{
-		//Affichage du début de la page html
+		//Affichage du dï¿½but de la page html
 		$tailleA = count($erreurs);
 		echo '<b>Les erreurs suivantes ont &eacute;t&eacute; d&eacute;tect&eacute;es</b><br>';
 		for ($i=0;$i < $tailleA;$i++)
@@ -126,13 +126,13 @@ echo '<main id="bcContenu">',
 			echo "<p>$erreurs[$i]\n</p>";
 		}
 	}
-	
-	
-//On affiche les phrases après le formulaire
+
+
+//On affiche les phrases aprï¿½s le formulaire
 	echo 	 '<br><p>Pas encore de compte ? <a href="../php/inscription.php">Inscrivez-vous</a> sans plus tarder !</p>',
 			'<p>Vous h&eacute;sitez &agrave; vous inscrire ? Laissez-vous s&eacute;duire par <a href="../php/inscription.php">une pr&eacute;sentation</a> des possibilit&eacute;s de 24sur7</p>',
 		'</div>',
-	'</main>';		
+	'</main>';
 //On affiche le pied de page
 fd_html_pied();
 
