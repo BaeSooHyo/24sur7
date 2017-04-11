@@ -1,6 +1,8 @@
 <?php
 ob_start();
 include ('bibli_24sur7.php');
+session_start();
+
 
 fd_html_head('24sur7 | Agenda', '../css/style.css');
 fd_html_bandeau(APP_PAGE_AGENDA);

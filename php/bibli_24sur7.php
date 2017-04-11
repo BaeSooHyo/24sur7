@@ -71,7 +71,7 @@ function fd_form_ligne($gauche, $droite) {
 *
 * @return string	Le code HTML de la zone de formulaire
 */
-function fd_form_input($type, $name, $value, $size=0, $length=0) {
+function fd_form_input($type, $name, $value, $size=20, $length=20) {
 	$value = htmlentities($value, ENT_QUOTES, 'UTF-8');
 	$size = ($size == 0) ? '' : "size='{$size}'";
 	$length = ($length == 0) ? '' : "maxlength='{$length}'";
@@ -613,4 +613,22 @@ function fd_redirige($page) {
 	header("Location: $page");
 	exit();
 }
+
+function tj_setSessionUserInfo($ID)
+{
+	$sql ="
+		SELECT utiNom, utiMail
+		FROM utilisateur
+		WHERE utiID = $ID
+	";
+	$req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+	$res = mysqli_fetch_assoc($req);
+	foreach ($res as $key => $value)
+	{
+		$_SESSION[$key] = $value;
+	}
+
+	//TODO Recupérer les paramètres de l'utilisateur
+}
+
 ?>

@@ -1,7 +1,6 @@
 <?php
 ob_start();
 include('bibli_24sur7.php');
-fd_bd_connexion();
 
 if (! isset($_POST['btnValider'])) {
 	// On est dans un premier affichage de la page.
@@ -120,7 +119,7 @@ function fdl_add_utilisateur() {
             fd_bd_erreurExit('Erreur lors du chargement du jeu de caractères utf8');
         }
 
-		$mail = mysqli_real_escape_string($GLOBALS['bd'], $txtMail);
+		$mail = mysqli_real_escape_string( $txtMail);
 
 		$S = "SELECT	count(*)
 				FROM	utilisateur
@@ -180,7 +179,7 @@ function fdl_add_utilisateur() {
 	//-----------------------------------------------------
 	session_start();
 	$_SESSION['utiID'] = mysqli_insert_id($GLOBALS['bd']);
-	$_SESSION['utiNom'] = $txtNom;
+	tj_setSessionUserInfo($_SESSION['utiID']);
 
 	// Déconnexion de la base de données
     mysqli_close($GLOBALS['bd']);

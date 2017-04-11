@@ -1,6 +1,6 @@
 <?php
 
-//TODO g�rer la connexion (mail pr�sent dans la base de donn�e)
+//TODO gérer la connexion (mail présent dans la base de donnée)
 /**
 *
 *Page d'identification
@@ -10,6 +10,7 @@ ob_start();
 
 // Inclusion de la bibliothéque
 include('bibli_24sur7.php');
+
 
 	//_______________________________________________________________
 	/**
@@ -71,15 +72,19 @@ include('bibli_24sur7.php');
 		$Passe = $_POST['txtPasse'];
 		$erreurs = pbl_verif_co();
 
-		//L'utilisateur est connect�
+		//L'utilisateur est connecté
 		if ( $erreurs == NULL)
 		{
 			echo "Vous �tes connect�.";
 			session_start();
-			//$_SESSION['utiID'] = $enr['utiID'];
-			//$_SESSION['utiNom'] = $enr['utiNom'];
+			$_SESSION['utiID'] = $enr['utiID'];
+			$_SESSION['utiNom'] = $enr['utiNom'];
+			$_SESSION['utiMail'] = $enr['utiMail'];
 
-			header ('location: agenda.php');
+
+			echo $_SESSION['utiID'],'<hr>',$_SESSION['utiNom'];
+			exit();
+			header ('location: parametres.php');
 			exit();
 		}
 
