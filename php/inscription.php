@@ -58,7 +58,7 @@ echo '<form method="POST" action="../php/inscription.php">',
         fd_form_ligne(fd_form_input(APP_Z_SUBMIT,'btnValider', 'Je m\'inscris'),
                       fd_form_input(APP_Z_RESET,'btnAnnuler', 'Annuler')),
     '</table></div></form>',
-    'D&eacute;j&agrave; inscrit ? Alors <a href="../php/connexion.php">identifiez-vous !</a><br><br>',
+    'D&eacute;j&agrave; inscrit ? Alors <a href="../php/identification.php">identifiez-vous !</a><br><br>',
     'Vous h&eacute;sitez &agrave; vous inscrire ? Laissez-vous s&eacute; par
     <a href=\'../html/presentation.html\'>une pr&eacute;sentation</a>
     des possibilit&eacute; de 24sur7';
