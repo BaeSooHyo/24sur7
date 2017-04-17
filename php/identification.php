@@ -75,7 +75,7 @@ include('bibli_24sur7.php');
 		//L'utilisateur est connecté
 		if ( $erreurs == NULL)
 		{
-			echo "Vous �tes connect�.";
+			echo "Vous êtes connecté.";
 			session_start();
 			$_SESSION['utiID'] = $enr['utiID'];
 			$_SESSION['utiNom'] = $enr['utiNom'];
