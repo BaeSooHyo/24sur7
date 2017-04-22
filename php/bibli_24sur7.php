@@ -160,6 +160,8 @@ function pb_form_heure($name, $hsel=0, $msel=0){
 	$hsel=(int)$hsel;
 	$msel=(int)$msel;
 
+	//TODO Unifier 2 colonnes
+
 	$res = "<select id='{$name}_H' name='{$name}_H'>";
 	for ($i=0; $i <= 23 ; $i++){
 		if ($i == $hsel)

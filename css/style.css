@@ -40,7 +40,7 @@ html {
 body {
 	font-family: Verdana, Arial, Sans-Serif;
 	font-size: 13px;  /*10pt;	*/
-  	color: #404040;
+  color: #404040;
 	background: #9ac5e7 url(../images/fond.jpg);
 	}
 
@@ -480,6 +480,8 @@ input
 {
 	margin-right: 5px;
 }
+
+/*FIXME Problème footer*/
 
 /* ---------------------------------------------------------------
 	PARAMETRES
