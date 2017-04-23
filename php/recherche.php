@@ -3,7 +3,7 @@ ob_start();
 include('bibli_24sur7.php');
 fd_bd_connexion();
 
-if (! isset($_POST['btnRechercher']))
+if (!isset($_POST['btnRechercher']))
 {
 	// On est dans un premier affichage de la page.
 	// => On intialise les zones de saisie.
@@ -28,26 +28,24 @@ echo '<section id="bcContenu"><div class="aligncenter">',
     .fd_form_input(APP_Z_SUBMIT, 'btnRechercher', 'Rechercher')),
     '</table></div></form>';
 
-if ($motsCles == '')
+if ($motsCles !== '')
 {
-  $motsCles = mysqli_real_escape_string($motsCles);
+  $motsCles = mysqli_real_escape_string($GLOBALS['bd'], $motsCles);
 
   $sql = "
-  SELECT utiNom utiMail
+  SELECT utiNom, utiMail
   FROM utilisateur
-  WHERE utiNom LIKE '$motsCles%'
+  WHERE utiNom LIKE '%$motsCles%' or utiMail LIKE '%$motsCles%'
   ";
 
-  echo $sql;
-
-  $req = mysqli_query($_GLOBALS['bd'],$sql) or fd_bd_erreur($sql);
+  $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
 
   while ($res = mysqli_fetch_assoc($req))
   {
-    echo req['utiNom'],' ',req['utiMail'];
+    echo $res['utiNom'],' ',$res['utiMail'],'<br>';
+    //TODO Protéger et présenter
   }
 }
-
 
 echo '</div></section>';
 fd_html_pied();

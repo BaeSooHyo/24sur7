@@ -1,8 +1,8 @@
 <?php
 
-//TODO g&eacute;rer la connexion (mail pr&eacute;sent dans la base de donn&eacute;e)
+//TODO gÃ©rer la connexion (mail prÃ©sent dans la base de donnÃ©es)
 /**
-* 
+*
 *Page d'identification
 */
 // Bufferisation des sorties
@@ -31,20 +31,20 @@ include('bibli_24sur7.php');
 		$HFinH = $_POST['selHFin_H'];
 		$HFinM = $_POST['selHFin_M'];
 		$EvJournee = $_POST['chkJournee'];
-		
+
 		//Date
 		if ( date("j", mktime(0, 0, 0, $dateM, -1, $dateY)) < $dateD )
 		{
 			array_push( $er, "La date n'est pas valide <br>");
 		}
-		
+
 		//Libelle
-		if ( (strlen($Libelle)) == 0) 
+		if ( (strlen($Libelle)) == 0)
 		{
 			array_push($er, "Le libell&eacute; est obligatoire<br>");
 		}
-		
-		//On v&eacute;rifie la dur&eacute;e du rendez-vous 
+
+		//On v&eacute;rifie la dur&eacute;e du rendez-vous
 		if ( ($HDebutH > $HFinM) || ( ($HDebutH == $HFinM) && ($HFinM < $HDebutM) ) )
 		{
 			array_push($er, "le rendez-vous doit durer au moins 15 minutes<br>");
@@ -53,45 +53,45 @@ include('bibli_24sur7.php');
 		{
 			array_push($er, "le rendez-vous doit durer au moins 15 minutes<br>");
 		}
-		
+
 		/*$bd = fd_db_connexion();
-		
+
 		//On v&eacute;rifie si le rendez vous n'en chevauche pas un d&eacute;j&agrave; pr&eacute;sent
 		$sql = 'SELECT  *
 			FROM rendezvous
 			WHERE rdvIDUtilisateur = ' . '"' . (mysqli_real_escape_string($GLOBALS['bd'], $_SESSION['utiID'])) . '"';
-			
+
 		$res = mysqli_query($GLOBALS['bd'], $sql) OR fd_bd_erreur($sql);
-		
-		
+
+
 		$rdvHeureFinH = (int) substr( fd_heure_claire($test['rdvHeureFin']), 0, 1);
 		$rdvHeureFinM = (int) substr( fd_heure_claire($test['rdvHeureFin']), 3, 4);
 		$rdvHeureDebutH = (int) substr( fd_heure_claire($test['rdvHeureDebut']), 0, 1);
 		$rdvHeureDebutM = (int) substr( fd_heure_claire($test['rdvHeureDebut']), 3, 4);
-		
+
 		while ($test = mysqli_fetch_assoc($res) )
 		{
-			if( ( ($HDebutH > $rdvHeureDebutH) && ($HDebutH < $rdvHeureFinH) ) || ( ($HFinH >= $rdvHeureDebutH) && ($HFinH <= $rdvHeureFinH) ) ) 
+			if( ( ($HDebutH > $rdvHeureDebutH) && ($HDebutH < $rdvHeureFinH) ) || ( ($HFinH >= $rdvHeureDebutH) && ($HFinH <= $rdvHeureFinH) ) )
 			{
 				array_push($er, "le rendez-vous ne doit pas chevaucher un autre rendez-vous<br>");
 			}
-			if ( ($HDebutH = $rdvHeureDebutH) && ($HDebutM > $rdvHeureDebutM) ) 
+			if ( ($HDebutH = $rdvHeureDebutH) && ($HDebutM > $rdvHeureDebutM) )
 			{
 				array_push($er, "le rendez-vous ne doit pas chevaucher un autre rendez-vous<br>");
 			}
-			if ( ($HFinH = $rdvHeureFintH) ) 
+			if ( ($HFinH = $rdvHeureFintH) )
 			{
 				array_push($er, "le rendez-vous ne doit pas chevaucher un autre rendez-vous<br>");
 			}
-			
-		}	*/	
-		
+
+		}	*/
+
 		return $er;
 	}
 
 	$erreurs = array();
-	
-	
+
+
 	if($_POST['btnIdentifier'])
 	{
 		$Libelle = $_POST['txtLibelle'];
@@ -107,15 +107,15 @@ include('bibli_24sur7.php');
 		$erreurs = pbl_verif_rdv();
 
 		//L'utilisateur est connect&eacute;
-		if ( $erreurs == NULL) 
+		if ( $erreurs == NULL)
 		{
 			//ajout d'un rendez-vous &agrave; la base de donn&eacute;es
 			echo 'Ajout possible<br>';
 		}
 
-		
+
 	}
-	else 
+	else
 	{
 		$Libelle ='';
 		$dateD = '21';
@@ -155,9 +155,9 @@ echo '<main id="bcContenu">',
 				'</table>',
 				'</div>',
 			'</form>';
-			
-	//Si il y a des erreurs, on les affiches après le formulaire
-	if ( $erreurs != NULL) 
+
+	//Si il y a des erreurs, on les affiches aprï¿½s le formulaire
+	if ( $erreurs != NULL)
 	{
 		//Affichage du d&eacute;but de la page html
 		$tailleA = count($erreurs);
@@ -167,13 +167,13 @@ echo '<main id="bcContenu">',
 			echo "<p>$erreurs[$i]\n</p>";
 		}
 	}
-	
-	
-//On affiche les phrases après le formulaire
+
+
+//On affiche les phrases aprï¿½s le formulaire
 	echo 	 '<br><p><a href="agenda.php">', "Retour &agrave; l'agenda</a></p>",
 		'</div>',
-	'</main>';	
-	
+	'</main>';
+
 //On affiche le pied de page
 fd_html_pied();
 

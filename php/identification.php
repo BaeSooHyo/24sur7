@@ -54,9 +54,9 @@ include('bibli_24sur7.php');
 			array_push($er, "Le mot de passe ne correspond pas &agrave; cette adresse mail.<br>");
 		}
 
-        session_start();
-        $_SESSION['utiID'] = $enr['utiID'];
-        $_SESSION['utiNom'] = $enr['utiNom'];
+    session_start();
+    $_SESSION['utiID'] = $enr['utiID'];
+		tj_setSessionUserInfo($_SESSION['utiID']);
 
 		mysqli_free_result($res);
 		mysqli_close($GLOBALS['bd']);
