@@ -56,7 +56,7 @@ include('bibli_24sur7.php');
 
     session_start();
     $_SESSION['utiID'] = $enr['utiID'];
-        $_SESSION['utiNom'] = $enr['utiNom'];
+		tj_setSessionUserInfo($_SESSION['utiID']);
 
 		mysqli_free_result($res);
 		mysqli_close($GLOBALS['bd']);
