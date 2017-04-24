@@ -5,8 +5,8 @@ session_start();
 fd_bd_connexion();
 
 
-fd_html_head('24sur7 | Agenda', '../css/style.css');
-fd_html_bandeau(APP_PAGE_AGENDA);
+fd_html_head(APP_NOM_APPLICATION.' | Parametres', '../css/style.css');
+fd_html_bandeau(APP_PAGE_PARAMETRES);
 
 if (isset($_POST['btnValiderInfo']))
 {

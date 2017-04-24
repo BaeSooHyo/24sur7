@@ -130,7 +130,7 @@ include('bibli_24sur7.php');
 	}
 
 // Si on est encore là, c'est que l'utilisateur est bien authentifié.
-fd_html_head('RendezVous | 24sur7');
+fd_html_head(APP_NOM_APPLICATION' | RendezVous');
 
 //On affiche le bandeau avec les onglets non s&eacute;lectionn&eacute;s
 fd_html_bandeau('x');

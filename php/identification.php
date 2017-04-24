@@ -12,15 +12,15 @@ include('bibli_24sur7.php');
 
 	//_______________________________________________________________
 	/**
-	* Effectue les v�rifications de saisie et de connexion
+	* Effectue les vérifications de saisie et de connexion
 	*
-	* @return array 	tableau des erreurs d�tect�es
+	* @return array 	tableau des erreurs détectées
 	*/
 	function pbl_verif_co()
 	{
 		$bd = fd_bd_connexion();
 
-		//On fait les v�rifications des donn�es
+		//On fait les vérifications des donnes
 		$er = array();
 		$Mail = $_POST['txtMail'];
 		$Passe = $_POST['txtPasse'];
@@ -37,7 +37,7 @@ include('bibli_24sur7.php');
 
 		$Mail = (mysqli_real_escape_string($GLOBALS['bd'], $Mail)) ;
 
-		//On v�rifie si l'adress mail est  pr�sente dans notre base de donn�es
+		//On vérifie si l'adress mail est  présente dans notre base de données
 		$sql = 'SELECT  *
 			FROM utilisateur
 			WHERE utiMail= "'.$Mail .'"';
@@ -56,7 +56,7 @@ include('bibli_24sur7.php');
 
     session_start();
     $_SESSION['utiID'] = $enr['utiID'];
-		tj_setSessionUserInfo($_SESSION['utiID']);
+        $_SESSION['utiNom'] = $enr['utiNom'];
 
 		mysqli_free_result($res);
 		mysqli_close($GLOBALS['bd']);
@@ -74,11 +74,10 @@ include('bibli_24sur7.php');
 		$Passe = $_POST['txtPasse'];
 		$erreurs = pbl_verif_co();
 
-		//L'utilisateur est connect�
+		//L'utilisateur est connecté
 		if ( $erreurs == NULL)
 		{
-			header ('location: agenda.php');
-			exit();
+			fd_redirige('agenda.php');
 		}
 
 
@@ -91,7 +90,7 @@ include('bibli_24sur7.php');
 	}
 
 // Si on est encore là, c'est que l'utilisateur est bien authentifié.
-fd_html_head('Identification | 24sur7');
+fd_html_head(APP_NOM_APPLICATION.' | Identification');
 
 //On affiche le bandeau sans les onglets
 fd_html_bandeau(0, '-');
@@ -113,10 +112,10 @@ echo '<main id="bcContenu">',
 				'</div>',
 			'</form>';
 
-	//Si il y a des erreurs, on les affiches apr�s le formulaire
+	//Si il y a des erreurs, on les affiches aprés le formulaire
 	if ( $erreurs != NULL)
 	{
-		//Affichage du d�but de la page html
+		//Affichage du début de la page html
 		$tailleA = count($erreurs);
 		echo '<b>Les erreurs suivantes ont &eacute;t&eacute; d&eacute;tect&eacute;es</b><br>';
 		for ($i=0;$i < $tailleA;$i++)
@@ -126,9 +125,9 @@ echo '<main id="bcContenu">',
 	}
 
 
-//On affiche les phrases apr�s le formulaire
+//On affiche les phrases aprés le formulaire
 	echo 	 '<br><p>Pas encore de compte ? <a href="../php/inscription.php">Inscrivez-vous</a> sans plus tarder !</p>',
-			'<p>Vous h&eacute;sitez &agrave; vous inscrire ? Laissez-vous s&eacute;duire par <a href="../php/inscription.php">une pr&eacute;sentation</a> des possibilit&eacute;s de 24sur7</p>',
+			'<p>Vous h&eacute;sitez &agrave; vous inscrire ? Laissez-vous s&eacute;duire par <a href="../php/inscription.php">une pr&eacute;sentation</a> des possibilit&eacute;s de ',APP_NOM_APPLICATION,'</p>',
 		'</div>',
 	'</main>';
 //On affiche le pied de page

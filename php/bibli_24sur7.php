@@ -17,9 +17,6 @@ define('APP_BD_URL', 'localhost');
 define('APP_BD_USER', 'u_24sur7_jeannin_thibaud');
 define('APP_BD_PASS', 'p_24sur7_jeannin_thibaud');
 define('APP_BD_NOM', '24sur7_jeannin_thibaud');
-/*define('APP_BD_USER', 'u_merlet');
-define('APP_BD_PASS', 'p_merlet');
-define('APP_BD_NOM', '24sur7_merlet');*/
 
 define('APP_NOM_APPLICATION','24sur7');
 
@@ -147,12 +144,12 @@ function fd_form_date($name, $jsel=0, $msel=0, $asel=0){
 
 //_______________________________________________________________
 /**
-* Fonction afichant deux �l�ments de s�lecion avec les pr�-s�lectionn�s
+* Fonction afichant deux éléments de sélecion avec les pré-sélectionnés
 *
 *
 * @param string		$nom	Préfixe pour les noms des zones
-* @param integer	$hsel 	l'heure s�lectionn�e par d�faut
-* @param integer	$msel 	les minutes s�lectionn�es par d�faut
+* @param integer	$hsel 	l'heure sélectionnée par défaut
+* @param integer	$msel 	les minutes sélectionnées par défaut
 *
 * @return string 	Le code HTML des 2 zones de liste
 */

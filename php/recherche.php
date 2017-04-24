@@ -17,8 +17,8 @@ else
   $motsCles = $_POST['motsCles'];
 }
 
-fd_html_head('24sur7 | Agenda', '../css/style.css');
-fd_html_bandeau(APP_PAGE_AGENDA);
+fd_html_head(APP_NOM_APPLICATION.' | Recherche', '../css/style.css');
+fd_html_bandeau(APP_PAGE_RECHERCHE);
 echo '<section id="bcContenu"><div class="aligncenter">',
     '<form method="POST" action="../php/recherche.php">',
     '<div class="formulaire">',
