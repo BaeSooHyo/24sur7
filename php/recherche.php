@@ -44,6 +44,7 @@ if ($motsCles !== '')
   {
     echo $res['utiNom'],' ',$res['utiMail'],'<br>';
     //TODO Protéger et présenter
+    //TODO Requête SQL pour savoir si abonné ou non
   }
 }
 

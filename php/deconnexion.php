@@ -1,8 +1,6 @@
 <?php
-
+  include('bibli_24sur7.php');
   session_destroy();
   $_SESSION = array();
-  header('Location: ../php/deconnexion.php');
-  exit;
-
+  fd_redirige('identification.php');
 ?>
