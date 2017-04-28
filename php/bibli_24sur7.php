@@ -81,19 +81,7 @@ function fd_form_input($type, $name, $value, $size=20, $length=20) {
 	}
 }
 
-function fd_form_checkboxes($names, $nbRows = 0)
-{
 
-	$len = count($names);
-	echo	'<table>';
-	for ($i = 0; $i<$len; $i++)
-	{
-		if ($i % $nbRows === 0){echo '<tr>';}
-		echo '<td><input type="',APP_Z_CHECKBOX, "\"name='$names[$i]' value='$names[$i]'><label for='$names[$i]'>$names[$i]</label></td>";
-		if ($i % $nbRows === 0){echo '</tr>';}
-	}
-	echo '</table>';
-}
 
 //_______________________________________________________________
 /**
@@ -616,7 +604,7 @@ function fd_redirige($page) {
 function tj_setSessionUserInfo($ID)
 {
 	$sql ="
-		SELECT utiNom, utiMail utiJours utiHeureMin utiHeureMax
+		SELECT utiNom, utiMail, utiJours, utiHeureMin, utiHeureMax
 		FROM utilisateur
 		WHERE utiID = $ID
 	";
@@ -624,7 +612,7 @@ function tj_setSessionUserInfo($ID)
 	$res = mysqli_fetch_assoc($req);
 	foreach ($res as $key => $value)
 	{
-		$_SESSION[$key] = $value;
+		$_SESSION[$key] = htmlentities($value, ENT_QUOTES, 'UTF-8');
 	}
 }
 

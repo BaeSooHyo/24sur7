@@ -133,8 +133,8 @@ echo '<section id="bcContenu"><div class="aligncenter">';
 
 echo '<h3>Informations sur votre compte<hr></h3>';
 $size = 25;
-echo '<form method="POST" action="../php/parametres.php">',
-    '<div class="formulaire">',
+echo '<div class="formulaire">',
+    '<form method="POST" action="../php/parametres.php">',
 		'<table border="1" cellpadding="4" cellspacing="0">',
 		fd_form_ligne('Nom',
             fd_form_input(APP_Z_TEXT,'txtNom', $_SESSION['utiNom'], $size	 ,100)),
@@ -146,16 +146,39 @@ echo '<form method="POST" action="../php/parametres.php">',
             fd_form_input(APP_Z_PASS,'txtVerif', '', $size ,50)),
         fd_form_ligne(fd_form_input(APP_Z_SUBMIT,'btnValiderInfo', 'Mettre à jour'),
                       fd_form_input(APP_Z_RESET,'btnAnnulerInfo', 'Annuler')),
-    '</table></div></form>';
+    '</table></form></div>';
+
+$jours = $_SESSION['utiJours'];
+$lundiChecked =     ($jours % 1 == 1) ? 'checked' : '';
+$mardiChecked =     ($jours>>1 % 1 == 1) ? 'checked' : '';
+$mercrediChecked =  ($jours>>2 % 1 == 1) ? 'checked' : '';
+$jeudiChecked =     ($jours>>3 % 1 == 1) ? 'checked' : '';
+$vendrediChecked =  ($jours>>4 % 1 == 1) ? 'checked' : '';
+$samediChecked =    ($jours>>5 % 1 == 1) ? 'checked' : '';
+$dimancheChecked =  ($jours>>6 % 1 == 1) ? 'checked' : '';
+
+$formJours = '<table>
+</tr><tr> <td><input type ="'.APP_Z_CHECKBOX.'" name="chkLundi" value = "lundi"'.       $lundiChecked .'><label for="chkLundi">Lundi</label></td>
+          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkMardi" value = "mardi"'.       $mardiChecked .'><label for="chklMardi">Mardi</label></td>
+          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkMercredi" value = "mercredi"'. $mercrediChecked .'><label for="chkMercredi">Mercredi</label></td>
+</tr><tr> <td><input type ="'.APP_Z_CHECKBOX.'" name="chkJeudi" value = "jeudi"'.       $jeudiChecked .'><label for="chkJeudi">Jeudi</label></td>
+          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkVendredi" value = "vendredi"'. $vendrediChecked .'><label for="chkVendredi">Vendredi</label></td>
+          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkSamedi" value = "samedi"'.     $samediChecked .'><label for="chkSamedi">Samedi</label></td>
+</tr><tr> <td><input type ="'.APP_Z_CHECKBOX.'" name="chkDimanche" value = "dimanche"'. $dimancheChecked .'><label for="chkDimanche">Dimanche</label></td>
+</tr>';
 
 echo '<h3>Options d\'affichage du calendrier<hr></h3>',
+  '<div class="formulaire">',
   '<form method="POST" action="../php/parametres.php">',
-  		'<table border="1" cellpadding="4" cellspacing="0">',
-      fd_form_ligne('Jours affichés', fd_form_checkboxes(JOURS_SEMAINE, 3)),
+  '<table border="1" cellpadding="4" cellspacing="0">',
+      fd_form_ligne('Jours affichés', $formJours),
       fd_form_ligne('Heure minimale', pb_form_heure(6,0)),
       fd_form_ligne('Heure minimale', pb_form_heure(22,0)),
-      '</table></form>';
-//TODO utiliser valeurs utilisateur
+      fd_form_ligne(fd_form_input(APP_Z_SUBMIT,'btnValiderCalendrier', 'Mettre à jour'),
+                    fd_form_input(APP_Z_RESET,'btnAnnulerCalendrier', 'Annuler')),
+      '</table></div></form>';
+//TODO utiliser valeurs utilisateur heures et déterminers jours
+//TODO exécuter maj
 
 echo '<h3>Vos cat&eacutegories<hr></h3>';
 

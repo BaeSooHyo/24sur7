@@ -104,11 +104,12 @@ echo '<main id="bcContenu">',
 			'<p>Pour vous connecter, veuillez vous identifier.</p>';
 
 //On affiche le formulaire
+$size = 40;
 	echo		'<form method="POST" action="identification.php">',
 				'<div class="formulaire">',
 				'<table border="0" cellpadding="4" cellspacing="0">',
-					fd_form_ligne('Email', fd_form_input(APP_Z_TEXT, 'txtMail', (htmlentities(($Mail), ENT_COMPAT, 'ISO-8859-1')) , '40')),
-					fd_form_ligne('Mot de passe', fd_form_input(APP_Z_PASS, 'txtPasse', (htmlentities(($Passe), ENT_COMPAT, 'ISO-8859-1')) , '40')),
+					fd_form_ligne('Email', fd_form_input(APP_Z_TEXT, 'txtMail', (htmlentities(($Mail), ENT_COMPAT, 'ISO-8859-1')) ,$size, '150')),
+					fd_form_ligne('Mot de passe', fd_form_input(APP_Z_PASS, 'txtPasse', (htmlentities(($Passe), ENT_COMPAT, 'ISO-8859-1')) ,$size, '50')),
 					fd_form_ligne( fd_form_input(APP_Z_SUBMIT, 'btnIdentifier', "S'identifier"), fd_form_input(APP_Z_RESET, 'btnAnnuler', 'Annuler')),
 				'</table>',
 				'</div>',
