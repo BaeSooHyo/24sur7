@@ -10,6 +10,8 @@ ob_start();
 // Inclusion de la bibliothéque
 include('bibli_24sur7.php');
 
+//TODO Gérér erreurs
+
 	//_______________________________________________________________
 	/**
 	* Effectue les vérifications de saisie et de connexion
@@ -20,7 +22,7 @@ include('bibli_24sur7.php');
 	{
 		$bd = fd_bd_connexion();
 
-		//On fait les vérifications des donnes
+		//On fait les vérifications des données
 		$er = array();
 		$Mail = $_POST['txtMail'];
 		$Passe = $_POST['txtPasse'];

@@ -40,12 +40,23 @@ if ($motsCles !== '')
 
   $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
 
+  $i = 0;
+  echo '<ul>';
   while ($res = mysqli_fetch_assoc($req))
   {
-    echo $res['utiNom'],' ',$res['utiMail'],'<br>';
-    //TODO Protéger et présenter
+    $style = ($i % 2 == 0 ) ? 'background :  #9AC5E7' : '';
+    echo '<li style="'; //TODO insérer style ici
+    echo ($i % 2 == 0 ) ? 'background :  #9AC5E7' : '';
+    echo '"">';
+    echo $res['utiNom'],' ',$res['utiMail'];
+    echo '</li>';
+    $i++;
+
     //TODO Requête SQL pour savoir si abonné ou non
+    //TODO Bouton formulaire abonnement/désabonnement
   }
+  echo '</ul>';
+
 }
 
 echo '</div></section>';

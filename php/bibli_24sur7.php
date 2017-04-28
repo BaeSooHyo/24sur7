@@ -616,7 +616,7 @@ function fd_redirige($page) {
 function tj_setSessionUserInfo($ID)
 {
 	$sql ="
-		SELECT utiNom, utiMail
+		SELECT utiNom, utiMail utiJours utiHeureMin utiHeureMax
 		FROM utilisateur
 		WHERE utiID = $ID
 	";
@@ -626,8 +626,6 @@ function tj_setSessionUserInfo($ID)
 	{
 		$_SESSION[$key] = $value;
 	}
-
-	//TODO Recupérer les paramètres de l'utilisateur
 }
 
 ?>
