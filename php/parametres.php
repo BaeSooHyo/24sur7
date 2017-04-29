@@ -100,6 +100,56 @@ if (isset($_POST['btnValiderInfo']))
   }
 
 }
+if (isset($_POST['btnValiderCalendrier']))
+{
+  $joursSelectionnes = 0;
+  if (isset($_POST['chkDimanche']))
+  {
+    $joursSelectionnes += 1;
+  }
+  $joursSelectionnes = $joursSelectionnes << 1;
+  if (isset($_POST['chkSamedi']))
+  {
+    $joursSelectionnes += 1;
+  }
+  $joursSelectionnes = $joursSelectionnes << 1;
+  if (isset($_POST['chkVendredi']))
+  {
+    $joursSelectionnes += 1;
+  }
+  $joursSelectionnes = $joursSelectionnes << 1;
+  if (isset($_POST['chkJeudi']))
+  {
+    $joursSelectionnes += 1;
+  }
+  $joursSelectionnes = $joursSelectionnes << 1;
+  if (isset($_POST['chkMercredi']))
+  {
+    $joursSelectionnes += 1;
+  }
+  $joursSelectionnes = $joursSelectionnes << 1;
+  if (isset($_POST['chkMardi']))
+  {
+    $joursSelectionnes += 1;
+  }
+  $joursSelectionnes = $joursSelectionnes << 1;
+  if (isset($_POST['chkLundi']))
+  {
+    $joursSelectionnes += 1;
+  }
+
+  $joursSelectionnes = mysqli_real_escape_string($GLOBALS['bd'], $joursSelectionnes);
+
+  $sql = "
+  UPDATE utilisateur
+  SET utiJours = '$joursSelectionnes'
+  WHERE utiID = ".$_SESSION['utiID'];
+
+  $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+
+//Gérer heures
+
+}
 if (isset($_POST['updateCategorie']))
 {
   $catNom = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catNom']);
@@ -124,10 +174,8 @@ if (isset($_POST['deleteCategorie']))
   $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
 }
 
-
 //TODO Affichage des erreurs
 //TODO Afficher message succès
-
 
 echo '<section id="bcContenu"><div class="aligncenter">';
 
