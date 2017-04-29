@@ -200,15 +200,13 @@ echo '<div class="formulaire">',
 
 $jours = $_SESSION['utiJours'];
 $lundiChecked =     ($jours % 2 == 1) ? 'checked' : '';
-$mardiChecked =     ($jours>>1 % 2 == 1) ? 'checked' : '';
-$mercrediChecked =  ($jours>>2 % 2 == 1) ? 'checked' : '';
-$jeudiChecked =     ($jours>>3 % 2 == 1) ? 'checked' : '';
-$vendrediChecked =  ($jours>>4 % 2 == 1) ? 'checked' : '';
-$samediChecked =    ($jours>>5 % 2 == 1) ? 'checked' : '';
-$dimancheChecked =  ($jours>>6 % 2 == 1) ? 'checked' : '';
+$mardiChecked =     (($jours>>1) % 2 == 1) ? 'checked' : '';
+$mercrediChecked =  (($jours>>2) % 2 == 1) ? 'checked' : '';
+$jeudiChecked =     (($jours>>3) % 2 == 1) ? 'checked' : '';
+$vendrediChecked =  (($jours>>4) % 2 == 1) ? 'checked' : '';
+$samediChecked =    (($jours>>5) % 2 == 1) ? 'checked' : '';
+$dimancheChecked =  (($jours>>6) % 2 == 1) ? 'checked' : '';
 
-echo $lundiChecked, $mardiChecked, $mercrediChecked, $jeudiChecked, $vendrediChecked, $samediChecked, $dimancheChecked;
-echo $jours;
 $formJours = '<table>
 </tr><tr> <td><input type ="'.APP_Z_CHECKBOX.'" name="chkLundi" value = "lundi"'.       $lundiChecked .'><label for="chkLundi">Lundi</label></td>
           <td><input type ="'.APP_Z_CHECKBOX.'" name="chkMardi" value = "mardi"'.       $mardiChecked .'><label for="chklMardi">Mardi</label></td>
