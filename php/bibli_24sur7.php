@@ -76,7 +76,13 @@ function fd_form_input($type, $name, $value, $size=20, $length=20) {
 	{
 		return "<input type='{$type}' id='{$name}' name='{$name}' {$size} value=\"{$value}\" class='btn'>";
 	}
-	else {
+	elseif ( $type == APP_Z_CHECKBOX)
+	{
+		$checked = ($size) ? 'checked' : '';
+		return "<input type='{$type}' id='{$name}' name='{$name}' $checked value=\"{$value}\" class='chkbox'>";
+	}
+	else
+	{
 		return "<input type='{$type}' id='{$name}' name='{$name}' {$size} {$length} value=\"{$value}\">";
 	}
 }

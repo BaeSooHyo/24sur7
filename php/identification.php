@@ -39,7 +39,7 @@ include('bibli_24sur7.php');
 
 		$Mail = (mysqli_real_escape_string($GLOBALS['bd'], $Mail)) ;
 
-		//On vérifie si l'adress mail est  présente dans notre base de données
+		//On vérifie si l'adresse mail est  présente dans notre base de données
 		$sql = 'SELECT  *
 			FROM utilisateur
 			WHERE utiMail= "'.$Mail .'"';

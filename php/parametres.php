@@ -157,8 +157,7 @@ if (isset($_POST['updateCategorie']))
   $catNom = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catNom']);
   $catCouleurFond = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurFond']);
   $catCouleurBordure = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurBordure']);
-  $catPublic = $_POST['catPublic'];
-  //= mysqli_real_escape_string($GLOBALS['bd'], $_POST['catPublic']);
+  $catPublic = (isset($_POST['catPublic'])) ? '1' : '0';
   $sql = "
   UPDATE categorie
   SET catNom = '$catNom', catCouleurFond = '$catCouleurFond', catCouleurBordure = '$catCouleurBordure', catPublic = '$catPublic'
@@ -176,6 +175,23 @@ if (isset($_POST['deleteCategorie']))
   $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
 }
 
+if (isset($_POST['addCategorie']))
+{
+  $catNom = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catNom']);
+  $catCouleurFond = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurFond']);
+  $catCouleurBordure = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurBordure']);
+  $catPublic = (isset($_POST['catPublic'])) ? '1' : '0';
+  $sql = "
+  INSERT INTO categorie(catNom, catCouleurFond, catCouleurBordure, catIDUtilisateur, catPublic)
+  VALUES ('$catNom', $catCouleurFond, $catCouleurBordure,".$_SESSION['utiID'].", $catPublic)
+  ";
+
+  echo $sql;
+
+  $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+}
+
+//TODO Gérer erreurs (champs vide)
 //TODO Affichage des erreurs
 //TODO Afficher message succès
 
@@ -197,6 +213,7 @@ echo '<div class="formulaire">',
         fd_form_ligne(fd_form_input(APP_Z_SUBMIT,'btnValiderInfo', 'Mettre à jour'),
                       fd_form_input(APP_Z_RESET,'btnAnnulerInfo', 'Annuler')),
     '</table></form></div>';
+ob_flush();
 
 $jours = $_SESSION['utiJours'];
 $lundiChecked =     ($jours % 2 == 1) ? 'checked' : '';
@@ -215,7 +232,7 @@ $formJours = '<table>
           <td><input type ="'.APP_Z_CHECKBOX.'" name="chkVendredi" value = "vendredi"'. $vendrediChecked .'><label for="chkVendredi">Vendredi</label></td>
           <td><input type ="'.APP_Z_CHECKBOX.'" name="chkSamedi" value = "samedi"'.     $samediChecked .'><label for="chkSamedi">Samedi</label></td>
 </tr><tr> <td><input type ="'.APP_Z_CHECKBOX.'" name="chkDimanche" value = "dimanche"'. $dimancheChecked .'><label for="chkDimanche">Dimanche</label></td>
-</tr>';
+</tr></table>';
 
 echo '<h3>Options d\'affichage du calendrier<hr></h3>',
   '<div class="formulaire">',
@@ -226,9 +243,10 @@ echo '<h3>Options d\'affichage du calendrier<hr></h3>',
       fd_form_ligne('Heure minimale', pb_form_heure(22,0)),
       fd_form_ligne(fd_form_input(APP_Z_SUBMIT,'btnValiderCalendrier', 'Mettre à jour'),
                     fd_form_input(APP_Z_RESET,'btnAnnulerCalendrier', 'Annuler')),
-      '</table></div></form>';
-//TODO utiliser valeurs utilisateur heures et déterminers jours
-//TODO exécuter maj
+      '</table></form></div>';
+//TODO utiliser valeurs utilisateur heures et déterminer jours
+
+ob_flush();
 
 echo '<h3>Vos cat&eacutegories<hr></h3>';
 
@@ -241,25 +259,35 @@ $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
 
 while ($res = mysqli_fetch_assoc($req))
 {
-  echo '<form method="POST" action="parametres.php">
+  echo
+    '<div class="formulaire"><form method="POST" action="parametres.php">
     <table border="1" cellpadding="4" cellspacing="0">';
-  echo 'Cat&eacute;gorie :',fd_form_input(APP_Z_TEXT, "catNom", $res['catNom'], 10,20);
+  echo 'Nom :',fd_form_input(APP_Z_TEXT, "catNom", $res['catNom'], 10,20);
   echo 'Fond : ',fd_form_input(APP_Z_TEXT, "catCouleurFond", $res['catCouleurFond'], 6,6);
   echo 'Bordure : ',fd_form_input(APP_Z_TEXT, "catCouleurBordure", $res['catCouleurBordure'], 6,6);
   echo fd_form_input(APP_Z_CHECKBOX, "catPublic", 1),"<label for 'public>Public</label>";
-  echo '<input type = "submit" name = "updateCategorie" value = ', $res['catID'],'>';
-  echo '<input type = "submit" name = "deleteCategorie" value = ', $res['catID'],'>';
+  // echo '<div style="width:500px;height:100px; border:1px solid #',$req['catCouleurBordure'],';"></div>';
+  echo '<input type = "submit" name = "updateCategorie" value = ',$res['catID'],'>';
+  echo '<input type = "submit" name = "deleteCategorie" value = ',$res['catID'],'>';
 
-  //TODO changer labels dans fd_form_input
-  //TODO foreach catagorie
-  //TODO Boutons aperçu enregistrer et supprimer
-  echo '</form>';
+  //TODO Rectangle aperçu
+  //TODO Style boutons
+  echo '</table></form></div>';
 };
 
-
-
+echo '<h3> Nouvelle catégorie :</h3>
+<div class="formulaire"><form method="POST" action="parametres.php">';
+echo 'Nom :',fd_form_input(APP_Z_TEXT, "catNom", '' , 10,20);
+echo 'Fond : ',fd_form_input(APP_Z_TEXT, "catCouleurFond", '', 6,6);
+echo 'Bordure : ',fd_form_input(APP_Z_TEXT, "catCouleurBordure", '', 6,6);
+echo fd_form_input(APP_Z_CHECKBOX, "catPublic", 1),"<label for 'public>Public</label>";
+echo '<input type = "submit" name = "addCategorie" value = "new">';
+echo '</form></div>';
+echo '<br>';
 
 echo '</div></section>';
 fd_html_pied();
+ob_flush();
+ob_end_flush();
 
 ?>

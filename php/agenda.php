@@ -10,5 +10,5 @@ echo '<section id="bcContenu"><div class="aligncenter">';
 fd_html_calendrier();
 echo '</div></section>';
 fd_html_pied();
-
+ob_end_flush();
 ?>
