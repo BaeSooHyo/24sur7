@@ -245,6 +245,7 @@ echo '<h3>Options d\'affichage du calendrier<hr></h3>',
                     fd_form_input(APP_Z_RESET,'btnAnnulerCalendrier', 'Annuler')),
       '</table></form></div>';
 //TODO utiliser valeurs utilisateur heures et déterminer jours
+//TODO refaire pb_form_heure pour avoir un seul input
 
 ob_flush();
 
