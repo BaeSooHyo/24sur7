@@ -154,16 +154,20 @@ if (isset($_POST['btnValiderCalendrier']))
 }
 if (isset($_POST['updateCategorie']))
 {
-  $catNom = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catNom']);
-  $catCouleurFond = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurFond']);
-  $catCouleurBordure = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurBordure']);
-  $catPublic = (isset($_POST['catPublic'])) ? '1' : '0';
-  $sql = "
-  UPDATE categorie
-  SET catNom = '$catNom', catCouleurFond = '$catCouleurFond', catCouleurBordure = '$catCouleurBordure', catPublic = '$catPublic'
-  WHERE catID = ".$_POST['updateCategorie'];
+  $catNomLen = mb_strlen($_POST['catNom'], 'UTF-8');
+  if ( ( (mb_strlen($_POST['catCouleurFond'], 'UTF-8') == 6) && (mb_strlen($_POST['catCouleurBordure'], 'UTF-8') == 6)) && ($catNomLen >= 4 && $catNomLen <= 20))
+  {
+    $catNom = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catNom']);
+    $catCouleurFond = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurFond']);
+    $catCouleurBordure = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurBordure']);
+    $catPublic = (isset($_POST['catPublic'])) ? '1' : '0';
+    $sql = "
+    UPDATE categorie
+    SET catNom = '$catNom', catCouleurFond = '$catCouleurFond', catCouleurBordure = '$catCouleurBordure', catPublic = '$catPublic'
+    WHERE catID = ".$_POST['updateCategorie'];
 
-  $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+    $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+  }
 }
 if (isset($_POST['deleteCategorie']))
 {
@@ -193,7 +197,6 @@ if (isset($_POST['addCategorie']))
 
 //TODO Gérer erreurs (champs vide)
 //TODO Affichage des erreurs
-//TODO Afficher message succès
 
 echo '<section id="bcContenu"><div class="aligncenter">';
 
@@ -271,8 +274,8 @@ while ($res = mysqli_fetch_assoc($req))
   echo '<input type = "submit" name = "updateCategorie" value = ',$res['catID'],'>';
   echo '<input type = "submit" name = "deleteCategorie" value = ',$res['catID'],'>';
 
-  //TODO Rectangle aperçu
-  //TODO Style boutons
+  //TODO Mise en page et style boutons
+
   echo '</table></form></div>';
 };
 

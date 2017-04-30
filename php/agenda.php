@@ -11,10 +11,6 @@ echo '<section id="bcContenu"><div class="aligncenter">';
 echo '<aside id="bcGauche">';
 fd_html_calendrier();
 
-//TODO Bloc "Vos agendas"
-//Liste catégories avec aperçu couleurs
-//Liste agendas suivis
-
 echo '<section id="categories">
   <h3>Vos agendas</h3>
   <p>
@@ -89,144 +85,113 @@ echo '</section>';
 
 echo '</aside>';
 
+
+
+
+
+
+//SEMAINIER
+
 $utiIDagenda = (isset($_POST['utiID'])) ? $_POST['utiID'] : $_SESSION['utiID'];
+$sql ="
+SELECT utiNom
+FROM utilisateur
+WHERE utiID = $utiIDagenda";
+$req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+$res = mysqli_fetch_assoc($req);
+$utiNomAgenda = $res['utiNom'];
+
+
 
 //TODO Sélection période
 $periodeDebut = 0;
 $periodeFin = 9999999;
 
 $sql = "
-SELECT
-FROM rendezvous
-WHERE utiID = $utiIDagenda
-AND rdvDate BETWEEN $periodeDebut AND $periodeFin
+SELECT utiNom, catID, catCouleurFond, catCouleurBordure, catPublic, rdvDate, rdvHeureDebut, rdvHeureFin, rdvLibelle
+FROM utilisateur, rendezvous, categorie
+WHERE $utiIDagenda = utiID
+AND utiID = rdvIDUtilisateur
+AND rdvIDCategorie = catID
 ";
+//AND rdvDate BETWEEN $periodeDebut AND $periodeFin
+
+$req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+
+
+for ($i=0; $i < 7; $i++) {
+  $jours[JOURS_SEMAINE[$i]] = ($_SESSION['utiJours'] >> $i) % 2;
+}
+
+$nbJours = 0;
+foreach ($jours as $key => $value) {
+  $nbJours += $value;
+}
+
+$colWidth = (int) (678 / $nbJours);
+
 
 echo
 '<section id="bcCentre">
 <p id="titreAgenda">
 <a href="#" class="flechegauche"><img src="../images/fleche_gauche.png" alt="picto fleche gauche"></a>
-<strong>Semaine du 9  au 15 F&eacute;vrier</strong> pour <strong>les L2</strong>
+<strong>',
+'Semaine du 9  au 15 F&eacute;vrier',
+'</strong> pour <strong>',
+$utiNomAgenda,
+'</strong>
 <a href="#" class="flechedroite"><img src="../images/fleche_droite.png" alt="picto fleche droite"></a>
 </p>
 <section id="agenda">
-<div id="intersection"></div>
-<div class="case-jour border-TRB border-L">Lundi 9</div>
-<div class="case-jour border-TRB">Mardi 10</div>
-<div class="case-jour border-TRB">Mercredi 11</div>
-<div class="case-jour border-TRB">Jeudi 12</div>
-<div class="case-jour border-TRB">Vendredi 13</div>
-<div class="case-jour border-TRB">Samedi 14</div>
-<div id="col-heures">
-  <div>7h</div>
-  <div>8h</div>
-  <div>9h</div>
-  <div>10h</div>
-  <div>11h</div>
-  <div>12h</div>
-  <div>13h</div>
-  <div>14h</div>
-  <div>15h</div>
-  <div>16h</div>
-  <div>17h</div>
-  <div>18h</div>
-</div>
-<div class="col-jour border-TRB border-L">
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#" class="case-heure-bas"></a>
-  <a style="background-color: #00FF00;
-          border: solid 2px #00DD00;
-        color: #000000;
-        top: 131px;
-            height: 114px;" class="rendezvous" href="#">TP LW</a>
-  <a style="color: #FFFFFF;
-        background-color: #FF0000;
-        border: solid 2px #DD0000;
-        top: 357px;
-        height: 114px;" class="rendezvous" href="#">TP LW</a>
-</div>
-<div class="col-jour border-TRB">
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#" class="case-heure-bas"></a>
-  <a style="color: #FFFFFF;
-        background-color: #0000FF;
-        border: solid 2px #0000DD;
-        top: 295px;
-        height: 114px;" class="rendezvous" href="#">TP LW</a>
-</div>
-<div class="col-jour border-TRB">
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#" class="case-heure-bas"></a>
-</div>
-<div class="col-jour border-TRB">
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#" class="case-heure-bas"></a>
-</div>
-<div class="col-jour border-TRB">
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#" class="case-heure-bas"></a>
-</div>
-<div class="col-jour border-TRB">
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#"></a>
-  <a href="#" class="case-heure-bas"></a>
-</div>
-</section>
-</section>';
+<div id="intersection"></div>';
 
+$style = 'style = "width : '.$colWidth.'px;"';
+$firstDay = 1;
+for ($j = 0; $j < 7; $j++)
+{
+  if ($jours[JOURS_SEMAINE[$j]] == 0){continue;}
+  if ($firstDay)
+  {
+    $firstDay = 0;
+    $classe = 'class = "case-jour border-TRB border-L"';
+  }
+  else
+  {
+    $classe = 'class = "case-jour border-TRB"';
+  }
+  echo "<div $style $classe>".JOURS_SEMAINE[$j].'</div>';
+}
+
+echo '<div id="col-heures">
+';
+
+for ($i = $_SESSION['utiHeureMin']; $i <= $_SESSION['utiHeureMax']; $i++)
+{
+  echo '<div>',$i,'h</div>';
+}
+echo '</div>';
+for ($j = 0; $j < 7; $j++)
+{
+  if ($jours[JOURS_SEMAINE[$j]] == 0){continue;}
+  if ($j == 0)
+  {
+    echo '<div ',$style,' class="col-jour border-TRB border-L">';
+  }
+  else
+  {
+    echo '<div ',$style,' class="col-jour border-TRB">';
+  }
+
+  for ($i = $_SESSION['utiHeureMin'] ; $i < $_SESSION['utiHeureMax']; $i++)
+  {
+    echo '<a href="#"></a>';
+  }
+  echo '<a href="#" class="case-heure-bas"></a>';
+  echo '</div>';
+}
+
+echo '</section>
+</section>';
 
 
 echo '</div></section>';

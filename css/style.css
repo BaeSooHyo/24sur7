@@ -189,6 +189,7 @@ strong {
 	background: url(../images/contenu.png) repeat-y;
 	min-height: 500px;
 	padding: 0px 10px;
+	overflow-y: auto;
 }
 
 #bcGauche {
@@ -353,7 +354,6 @@ strong {
 	height: 10px;
 }
 
-}
 
 /* ---------------------------------------------------------------
 	RENDEZ-VOUS ET EVENEMENTS

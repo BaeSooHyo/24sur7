@@ -10,8 +10,6 @@ ob_start();
 // Inclusion de la bibliothéque
 include('bibli_24sur7.php');
 
-//TODO Gérér erreurs
-
 	//_______________________________________________________________
 	/**
 	* Effectue les vérifications de saisie et de connexion

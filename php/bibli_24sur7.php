@@ -37,8 +37,7 @@ define('APP_Z_SUBMIT', 'submit');
 define('APP_Z_RESET', 'reset');
 define('APP_Z_CHECKBOX', 'checkbox');
 
-define('JOURS_SEMAINE', array('lundi','mardi','mercredi','jeudi','vendredi','samedi','dimande'));
-
+define('JOURS_SEMAINE', array('lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'));
 
 
 
