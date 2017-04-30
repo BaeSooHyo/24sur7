@@ -267,7 +267,7 @@ while ($res = mysqli_fetch_assoc($req))
   echo 'Fond : ',fd_form_input(APP_Z_TEXT, "catCouleurFond", $res['catCouleurFond'], 6,6);
   echo 'Bordure : ',fd_form_input(APP_Z_TEXT, "catCouleurBordure", $res['catCouleurBordure'], 6,6);
   echo fd_form_input(APP_Z_CHECKBOX, "catPublic", 1),"<label for 'public>Public</label>";
-  // echo '<div style="width:500px;height:100px; border:1px solid #',$req['catCouleurBordure'],';"></div>';
+  echo '<div class = "apercu" style = "border-color #',$res['catCouleurBordure'],';	background-color: #',$res['catCouleurFond'],';" >Apercu</div>';
   echo '<input type = "submit" name = "updateCategorie" value = ',$res['catID'],'>';
   echo '<input type = "submit" name = "deleteCategorie" value = ',$res['catID'],'>';
 

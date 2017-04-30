@@ -52,7 +52,7 @@ ORDER BY suiIDSuivi, catNom
 $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
 
 
-$nom =0;
+$nom = 0;
 echo '<ul>
 ';
 while ($res = mysqli_fetch_assoc($req))
@@ -78,9 +78,10 @@ while ($res = mysqli_fetch_assoc($req))
 
 //TODO CSS : categorie dans categorie -> marge gauche
 
-if ($nom !== '')
+if ($nom !== 0)
 {echo '
-  </ul>';}
+  </ul>
+  </li>';}
 echo '
 </ul>';
 

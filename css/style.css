@@ -353,17 +353,6 @@ strong {
 	height: 10px;
 }
 
-.groupeA {
-	border: solid 2px #00DD00;
-	background-color: #00FF00;
-}
-.groupeB {
-	border: solid 2px #DD0000;
-	background-color: #FF0000;
-}
-.groupeC {
-	border: solid 2px #0000DD;
-	background-color: #0000FF;
 }
 
 /* ---------------------------------------------------------------
@@ -469,8 +458,14 @@ strong {
 	PARAMETRES
 --------------------------------------------------------------- */
 
-
-
+.apercu
+{
+	border: solid 2px;
+	width: 75px;
+	height: 20px;
+	text-align: center;
+	font-size: 15px;
+}
 
 /* ---------------------------------------------------------------
 	GENERAL
