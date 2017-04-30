@@ -51,14 +51,16 @@ include('bibli_24sur7.php');
 		{
 			array_push($er, "Cette adresse mail n'est pas inscrite sur notre site.<br>");
 		}
-		if ( ($enr['utiMail'] != NULL) && ($enr['utiPasse'] != (md5($Passe)) ) )
+		else if ($enr['utiPasse'] != (md5($Passe)) )
 		{
 			array_push($er, "Le mot de passe ne correspond pas &agrave; cette adresse mail.<br>");
 		}
-
-    session_start();
-    $_SESSION['utiID'] = $enr['utiID'];
-		tj_setSessionUserInfo($_SESSION['utiID']);
+		else
+		{
+			session_start();
+			$_SESSION['utiID'] = $enr['utiID'];
+			tj_setSessionUserInfo($_SESSION['utiID']);
+		}
 
 		mysqli_free_result($res);
 		mysqli_close($GLOBALS['bd']);
