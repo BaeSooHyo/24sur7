@@ -10,6 +10,8 @@
 // Défintion des constantes de l'application
 //____________________________________________________________________________
 
+//TODO Déplacer les define dans un fichier de config
+
 define('APP_TEST', TRUE);
 
 // Gestion des infos base de données
@@ -186,6 +188,9 @@ function fd_verifie_session(){
 	}
 }
 
+//TODO Utiliser au début de chaque script
+
+
 //_______________________________________________________________
 /**
 * Arrête une session et effectue une redirection vers la page 'inscription.php'
@@ -212,6 +217,8 @@ function fd_exit_session() {
 	exit();
 }
 //____________________________________________________________________________
+
+//TODO Utiliser dans deconnexion.php
 
 /**
  * Connexion à la base de données.
