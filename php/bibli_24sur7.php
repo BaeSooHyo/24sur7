@@ -396,6 +396,7 @@ function fd_html_pied() {
 			'<p id="copyright">24sur7 &amp; Partners &copy; 2012</p>',
 		'</footer>';
 
+//TODO Mettre liens presentation.html
 	echo '</main>',	// fin du bloc bcPage
 		'</body></html>';
 }
