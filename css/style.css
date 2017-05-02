@@ -361,19 +361,20 @@ strong {
 
 .rendezvous {
 	display: block;
-	color: #000;
-	font-size: 11px; /*8pt;*/
-	position: absolute;
-    margin: 1px;
-    padding: 2px 0px 0px 2px;
-    color: #000000;
-    width: 104px;
+	font-size: 11px;
+	margin: 1px;
 }
 
 
 /* ---------------------------------------------------------------
 	AGENDA
 --------------------------------------------------------------- */
+
+.semainier
+{
+	position: relative;
+}
+
 #titreAgenda {
 	text-align: center;
 	width: 672px;
@@ -465,6 +466,26 @@ strong {
 	height: 20px;
 	text-align: center;
 	font-size: 15px;
+}
+
+
+.btnEnregistrer, .btnSupprimer
+{
+	border: 0px;
+	color: white;
+	width: 25px;
+	height: 25px;
+	color: transparent;
+}
+
+.btnEnregistrer
+{
+	background: url(../images/sauver.png) no-repeat;
+}
+
+.btnSupprimer
+{
+	background: url(../images/supprimer.png) no-repeat;
 }
 
 /* ---------------------------------------------------------------

@@ -15,10 +15,16 @@
 define('APP_TEST', TRUE);
 
 // Gestion des infos base de données
+// define('APP_BD_URL', 'localhost');
+// define('APP_BD_USER', 'Paola');
+// define('APP_BD_PASS', 'plop');
+// define('APP_BD_NOM', '24sur7');
+
 define('APP_BD_URL', 'localhost');
-define('APP_BD_USER', 'Paola');
-define('APP_BD_PASS', 'plop');
-define('APP_BD_NOM', '24sur7');
+define('APP_BD_USER', 'u_24sur7_jeannin_thibaud');
+define('APP_BD_PASS', 'p_24sur7_jeannin_thibaud');
+define('APP_BD_NOM', '24sur7_jeannin_thibaud');
+
 
 define('APP_NOM_APPLICATION','24sur7');
 
@@ -488,9 +494,9 @@ function fd_html_calendrier($jour = 0, $mois = 0, $annee = 0) {
 	// Affichage du titre du calendrier
 	echo '<section id="calendrier">',
 	'<p>',
-	'<a href="#" class="flechegauche"><img src="../images/fleche_gauche.png" alt="picto fleche gauche"></a>',
+	'<a href="#?sem=-1" class="flechegauche"><img src="../images/fleche_gauche.png" alt="picto fleche gauche"></a>',
 	fd_get_mois($mois), ' ', $annee,
-	'<a href="#" class="flechedroite"><img src="../images/fleche_droite.png" alt="picto fleche droite"></a>',
+	'<a href="#?sem=1" class="flechedroite"><img src="../images/fleche_droite.png" alt="picto fleche droite"></a>',
 	'</p>';
 
 	// Affichage des jours du calendrier

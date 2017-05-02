@@ -271,8 +271,8 @@ while ($res = mysqli_fetch_assoc($req))
   echo 'Bordure : ',fd_form_input(APP_Z_TEXT, "catCouleurBordure", $res['catCouleurBordure'], 6,6);
   echo fd_form_input(APP_Z_CHECKBOX, "catPublic", 1),"<label for 'public>Public</label>";
   echo '<div class = "apercu" style = "border-color #',$res['catCouleurBordure'],';	background-color: #',$res['catCouleurFond'],';" >Apercu</div>';
-  echo '<input type = "submit" name = "updateCategorie" value = ',$res['catID'],'>';
-  echo '<input type = "submit" name = "deleteCategorie" value = ',$res['catID'],'>';
+  echo '<input class = "btnEnregistrer" type = "submit" name = "updateCategorie" value = ',$res['catID'],'>';
+  echo '<input class = "btnSupprimer" type = "submit" name = "deleteCategorie" value = ',$res['catID'],'>';
 
   //TODO Mise en page et style boutons
 
@@ -285,7 +285,7 @@ echo 'Nom :',fd_form_input(APP_Z_TEXT, "catNom", '' , 10,20);
 echo 'Fond : ',fd_form_input(APP_Z_TEXT, "catCouleurFond", '', 6,6);
 echo 'Bordure : ',fd_form_input(APP_Z_TEXT, "catCouleurBordure", '', 6,6);
 echo fd_form_input(APP_Z_CHECKBOX, "catPublic", 1),"<label for 'public>Public</label>";
-echo '<input type = "submit" name = "addCategorie" value = "new">';
+echo '<input class = "btnEnregistrer" type = "submit" name = "addCategorie" value = "new">';
 echo '</form></div>';
 echo '<br>';
 
