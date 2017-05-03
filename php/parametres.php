@@ -3,6 +3,7 @@ ob_start();
 include ('bibli_24sur7.php');
 session_start();
 fd_bd_connexion();
+fd_verifie_session();
 
 
 fd_html_head(APP_NOM_APPLICATION.' | Parametres', '../css/style.css');
@@ -247,8 +248,9 @@ echo '<h3>Options d\'affichage du calendrier<hr></h3>',
       fd_form_ligne(fd_form_input(APP_Z_SUBMIT,'btnValiderCalendrier', 'Mettre à jour'),
                     fd_form_input(APP_Z_RESET,'btnAnnulerCalendrier', 'Annuler')),
       '</table></form></div>';
+
 //TODO utiliser valeurs utilisateur heures et déterminer jours
-//TODO refaire pb_form_heure pour avoir un seul input
+//TODO utiliser un seul input pour sélectionner l'heure
 
 ob_flush();
 

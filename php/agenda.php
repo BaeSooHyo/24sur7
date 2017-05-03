@@ -3,7 +3,7 @@ ob_start();
 include ('bibli_24sur7.php');
 session_start();
 fd_bd_connexion();
-
+fd_verifie_session();
 // if(isset($_GET['sem']))
 // {
 //   //TODO Avancer/Reculer date +/- 1 semaine

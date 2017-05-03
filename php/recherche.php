@@ -2,6 +2,7 @@
 ob_start();
 include('bibli_24sur7.php');
 fd_bd_connexion();
+fd_verifie_session();
 
 if (!isset($_POST['btnRechercher']))
 {
