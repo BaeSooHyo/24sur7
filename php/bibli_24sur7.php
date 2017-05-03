@@ -10,8 +10,6 @@
 // Défintion des constantes de l'application
 //____________________________________________________________________________
 
-//TODO Déplacer les define dans un fichier de config
-
 define('APP_TEST', TRUE);
 
 // Gestion des infos base de données
@@ -158,8 +156,6 @@ function pb_form_heure($name, $hsel=0, $msel=0){
 	$hsel=(int)$hsel;
 	$msel=(int)$msel;
 
-	//TODO Unifier 2 colonnes
-
 	$res = "<select id='{$name}_H' name='{$name}_H'>";
 	for ($i=0; $i <= 23 ; $i++){
 		if ($i == $hsel)
@@ -193,8 +189,6 @@ function fd_verifie_session(){
 	}
 }
 
-//TODO Utiliser au début de chaque script
-
 
 //_______________________________________________________________
 /**
@@ -218,12 +212,10 @@ function fd_exit_session() {
          	$cookieParams['httponly']
     	);
 
-	header('location: inscription_08.php');
+	header('location: inscription.php');
 	exit();
 }
 //____________________________________________________________________________
-
-//TODO Utiliser dans deconnexion.php
 
 /**
  * Connexion à la base de données.
@@ -396,13 +388,12 @@ function fd_html_head($titre, $css = '../css/style.css') {
  */
 function fd_html_pied() {
 	echo '<footer id="bcPied">',
-			'<a id="apropos" href="#">A propos</a>',
-			'<a id="confident" href="#">Confidentialité</a>',
-			'<a id="conditions" href="#">Conditions</a>',
-			'<p id="copyright">24sur7 &amp; Partners &copy; 2012</p>',
+			'<a id="apropos" href="../html/presentation.html#quefaire">A propos</a>',
+			'<a id="confident" href="../html/presentation.html#confidentialite">Confidentialité</a>',
+			'<a id="conditions" href="../html/presentation.html#pied">Conditions</a>',
+			'<p id="copyright">24sur7 &amp; Partners &copy; 2017</p>',
 		'</footer>';
 
-//TODO Mettre liens presentation.html
 	echo '</main>',	// fin du bloc bcPage
 		'</body></html>';
 }

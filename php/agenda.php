@@ -70,7 +70,7 @@ echo'
   $id = $res['suiIDSuivi'];
 
   echo"
-  <li><a href = agenda.php?utiIDagenda=$id>$nom</a>
+  <li><a href = \"agenda.php?utiIDagenda=$id\">$nom</a>
   <ul>
   ";
   }
@@ -114,9 +114,12 @@ $utiNomAgenda = $res['utiNom'];
 //TODO Sélection période
 $periodeDebut = 20150209;
 $periodeFin = 20150215;
+$premierJourSemaine = -1;
 
 for ($i=0; $i < 7; $i++) {
   $jours[JOURS_SEMAINE[$i]] = ($_SESSION['utiJours'] >> $i) % 2;
+  if($premierJourSemaine == -1 && $jours[JOURS_SEMAINE[$i]] == 1)
+  {$premierJourSemaine = $i;}
 }
 
 $nbJours = 0;
@@ -178,13 +181,11 @@ for ($i = $_SESSION['utiHeureMin']; $i <= $_SESSION['utiHeureMax']; $i++)
 echo '</div>';
 
 
-
-
 echo '<div class = "semainier">';
 for ($j = 0; $j < 7; $j++)
 {
   if ($jours[JOURS_SEMAINE[$j]] == 0){continue;}
-  if ($j == 0)
+  if ($j == $premierJourSemaine)
   {
     echo '<div ',$style,' class="col-jour border-TRB border-L">';
   }
@@ -192,19 +193,6 @@ for ($j = 0; $j < 7; $j++)
   {
     echo '<div ',$style,' class="col-jour border-TRB">';
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   $dateJourAgenda = 20150302;
@@ -250,15 +238,6 @@ for ($j = 0; $j < 7; $j++)
     echo "<a $rdvStyle class=\"rendezvous\" href = \"rendezvous.php?rdvID=1\">$rdvLibelle</a>";
     //$rdvID
   }
-
-
-
-
-
-
-
-
-
 
 
 

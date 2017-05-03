@@ -9,8 +9,6 @@ fd_verifie_session();
 fd_html_head(APP_NOM_APPLICATION.' | Parametres', '../css/style.css');
 fd_html_bandeau(APP_PAGE_PARAMETRES);
 
-//TODO Gérer erreurs (champs vide)
-
 echo '<section id="bcContenu"><div class="aligncenter">';
 
 echo '<h3>Informations sur votre compte<hr></h3>';
