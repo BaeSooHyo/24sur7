@@ -117,7 +117,7 @@ if ($motsCles !== '')
     echo $res['utiNom'],' - ',$res['utiMail'];
     echo '</p>',$action,'</li>';
     $i++;
-
+    ob_flush();
     //TODO Placer boutons sur la même ligne
   }
   echo '</ul>';
