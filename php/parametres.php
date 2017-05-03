@@ -9,6 +9,14 @@ fd_verifie_session();
 fd_html_head(APP_NOM_APPLICATION.' | Parametres', '../css/style.css');
 fd_html_bandeau(APP_PAGE_PARAMETRES);
 
+//TODO Gérer erreurs (champs vide)
+//TODO Affichage des erreurs
+
+echo '<section id="bcContenu"><div class="aligncenter">';
+
+echo '<h3>Informations sur votre compte<hr></h3>';
+$size = 25;
+
 if (isset($_POST['btnValiderInfo']))
 {
   if ($_POST['txtNom'] !== $_SESSION['utiNom'])
@@ -100,7 +108,37 @@ if (isset($_POST['btnValiderInfo']))
     }
   }
 
+  if (isset($erreurs))
+  {
+    foreach ($erreurs as $key => $value)
+    {
+      echo htmlentities($value, ENT_QUOTES, 'UTF-8');
+    }
+  }
 }
+
+
+
+
+
+echo '<div class="formulaire">',
+    '<form method="POST" action="../php/parametres.php">',
+		'<table border="1" cellpadding="4" cellspacing="0">',
+		fd_form_ligne('Nom',
+            fd_form_input(APP_Z_TEXT,'txtNom', $_SESSION['utiNom'], $size	 ,100)),
+		fd_form_ligne('Email',
+            fd_form_input(APP_Z_TEXT,'txtMail', $_SESSION['utiMail'], $size ,150)),
+		fd_form_ligne('Mot de passe',
+            fd_form_input(APP_Z_PASS,'txtPasse', '', $size ,50)),
+        fd_form_ligne('Retapez votre mot de passe',
+            fd_form_input(APP_Z_PASS,'txtVerif', '', $size ,50)),
+        fd_form_ligne(fd_form_input(APP_Z_SUBMIT,'btnValiderInfo', 'Mettre à jour'),
+                      fd_form_input(APP_Z_RESET,'btnAnnulerInfo', 'Annuler')),
+    '</table></form></div>';
+ob_flush();
+
+
+echo '<h3>Options d\'affichage du calendrier<hr></h3>';
 if (isset($_POST['btnValiderCalendrier']))
 {
   $joursSelectionnes = 0;
@@ -140,19 +178,100 @@ if (isset($_POST['btnValiderCalendrier']))
   }
 
   $joursSelectionnes = mysqli_real_escape_string($GLOBALS['bd'], $joursSelectionnes);
+  $heureMin = mysqli_real_escape_string($GLOBALS['bd'], $_POST['heureMin']);
+  $heureMax = mysqli_real_escape_string($GLOBALS['bd'], $_POST['heureMax']);
 
-  $sql = "
-  UPDATE utilisateur
-  SET utiJours = '$joursSelectionnes'
-  WHERE utiID = ".$_SESSION['utiID'];
 
-  $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+  if (!(0 < $joursSelectionnes && $joursSelectionnes < 128))
+  {
+    $erreurs[] = 'Sélection invalide';
+  }
+  if (0 > $heureMin || $heureMin > 23)
+  {
+    $erreurs[] = 'Heure minimale invalide';
+  }
+  if (0 > $heureMax || $heureMax > 23)
+  {
+    $erreurs[] = 'Heure maximale invalide';
+  }
+  if ($heureMin > $heureMax)
+  {
+    $erreurs[] = 'L\'heure minimale doit être avant l\'heure maximale';
+  }
 
-  tj_setSessionUserInfo($_SESSION['utiID']);
 
-//Gérer heures
+  if (!isset($erreurs))
+  {
+    $sql = "
+    UPDATE utilisateur
+    SET utiJours = '$joursSelectionnes', utiHeureMin = '$heureMin', utiHeureMax = '$heureMax'
+    WHERE utiID = ".$_SESSION['utiID'];
+
+    $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+    tj_setSessionUserInfo($_SESSION['utiID']);
+  }
+  else
+  {
+    foreach ($erreurs as $key => $value)
+    {
+      echo htmlentities($value, ENT_QUOTES, 'UTF-8');
+    }
+  }
+
 
 }
+
+$jours = $_SESSION['utiJours'];
+$lundiChecked =     ($jours % 2 == 1) ? 'checked' : '';
+$mardiChecked =     (($jours>>1) % 2 == 1) ? 'checked' : '';
+$mercrediChecked =  (($jours>>2) % 2 == 1) ? 'checked' : '';
+$jeudiChecked =     (($jours>>3) % 2 == 1) ? 'checked' : '';
+$vendrediChecked =  (($jours>>4) % 2 == 1) ? 'checked' : '';
+$samediChecked =    (($jours>>5) % 2 == 1) ? 'checked' : '';
+$dimancheChecked =  (($jours>>6) % 2 == 1) ? 'checked' : '';
+
+$formJours = '<table>
+</tr><tr> <td><input type ="'.APP_Z_CHECKBOX.'" name="chkLundi" value = "lundi"'.       $lundiChecked .'><label for="chkLundi">Lundi</label></td>
+          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkMardi" value = "mardi"'.       $mardiChecked .'><label for="chklMardi">Mardi</label></td>
+          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkMercredi" value = "mercredi"'. $mercrediChecked .'><label for="chkMercredi">Mercredi</label></td>
+</tr><tr> <td><input type ="'.APP_Z_CHECKBOX.'" name="chkJeudi" value = "jeudi"'.       $jeudiChecked .'><label for="chkJeudi">Jeudi</label></td>
+          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkVendredi" value = "vendredi"'. $vendrediChecked .'><label for="chkVendredi">Vendredi</label></td>
+          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkSamedi" value = "samedi"'.     $samediChecked .'><label for="chkSamedi">Samedi</label></td>
+</tr><tr> <td><input type ="'.APP_Z_CHECKBOX.'" name="chkDimanche" value = "dimanche"'. $dimancheChecked .'><label for="chkDimanche">Dimanche</label></td>
+</tr></table>';
+
+$selectHeureMin = '<select id="heureMin" name="heureMin">';
+$selectHeureMax = '<select id="heureMax" name="heureMax">';
+for ($i=0; $i < 24; $i++)
+{
+  $selectHeureMin .= '<option value = '.$i;
+  $selectHeureMax .= '<option value = '.$i;
+
+  if ($i == $_SESSION['utiHeureMin']){$selectHeureMin .= ' selected';}
+  if ($i == $_SESSION['utiHeureMax']){$selectHeureMax .= ' selected';}
+
+  $selectHeureMin .= ">$i:00</option>";
+  $selectHeureMax .= ">$i:00</option>";
+}
+$selectHeureMin .= '</select>';
+$selectHeureMax .= '</select>';
+
+
+
+echo'<div class="formulaire">',
+  '<form method="POST" action="../php/parametres.php">',
+  '<table border="1" cellpadding="4" cellspacing="0">',
+      fd_form_ligne('Jours affichés', $formJours),
+      fd_form_ligne('Heure minimale', $selectHeureMin),
+      fd_form_ligne('Heure minimale', $selectHeureMax),
+      fd_form_ligne(fd_form_input(APP_Z_SUBMIT,'btnValiderCalendrier', 'Mettre à jour'),
+                    fd_form_input(APP_Z_RESET,'btnAnnulerCalendrier', 'Annuler')),
+      '</table></form></div>';
+
+ob_flush();
+
+echo '<h3>Vos cat&eacutegories<hr></h3>';
+
 if (isset($_POST['updateCategorie']))
 {
   $catNomLen = mb_strlen($_POST['catNom'], 'UTF-8');
@@ -168,6 +287,10 @@ if (isset($_POST['updateCategorie']))
     WHERE catID = ".$_POST['updateCategorie'];
 
     $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+  }
+  else
+  {
+    $erreurs[] = 'Couleurs invalides';
   }
 }
 if (isset($_POST['deleteCategorie']))
@@ -196,65 +319,13 @@ if (isset($_POST['addCategorie']))
   $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
 }
 
-//TODO Gérer erreurs (champs vide)
-//TODO Affichage des erreurs
-
-echo '<section id="bcContenu"><div class="aligncenter">';
-
-echo '<h3>Informations sur votre compte<hr></h3>';
-$size = 25;
-echo '<div class="formulaire">',
-    '<form method="POST" action="../php/parametres.php">',
-		'<table border="1" cellpadding="4" cellspacing="0">',
-		fd_form_ligne('Nom',
-            fd_form_input(APP_Z_TEXT,'txtNom', $_SESSION['utiNom'], $size	 ,100)),
-		fd_form_ligne('Email',
-            fd_form_input(APP_Z_TEXT,'txtMail', $_SESSION['utiMail'], $size ,150)),
-		fd_form_ligne('Mot de passe',
-            fd_form_input(APP_Z_PASS,'txtPasse', '', $size ,50)),
-        fd_form_ligne('Retapez votre mot de passe',
-            fd_form_input(APP_Z_PASS,'txtVerif', '', $size ,50)),
-        fd_form_ligne(fd_form_input(APP_Z_SUBMIT,'btnValiderInfo', 'Mettre à jour'),
-                      fd_form_input(APP_Z_RESET,'btnAnnulerInfo', 'Annuler')),
-    '</table></form></div>';
-ob_flush();
-
-$jours = $_SESSION['utiJours'];
-$lundiChecked =     ($jours % 2 == 1) ? 'checked' : '';
-$mardiChecked =     (($jours>>1) % 2 == 1) ? 'checked' : '';
-$mercrediChecked =  (($jours>>2) % 2 == 1) ? 'checked' : '';
-$jeudiChecked =     (($jours>>3) % 2 == 1) ? 'checked' : '';
-$vendrediChecked =  (($jours>>4) % 2 == 1) ? 'checked' : '';
-$samediChecked =    (($jours>>5) % 2 == 1) ? 'checked' : '';
-$dimancheChecked =  (($jours>>6) % 2 == 1) ? 'checked' : '';
-
-$formJours = '<table>
-</tr><tr> <td><input type ="'.APP_Z_CHECKBOX.'" name="chkLundi" value = "lundi"'.       $lundiChecked .'><label for="chkLundi">Lundi</label></td>
-          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkMardi" value = "mardi"'.       $mardiChecked .'><label for="chklMardi">Mardi</label></td>
-          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkMercredi" value = "mercredi"'. $mercrediChecked .'><label for="chkMercredi">Mercredi</label></td>
-</tr><tr> <td><input type ="'.APP_Z_CHECKBOX.'" name="chkJeudi" value = "jeudi"'.       $jeudiChecked .'><label for="chkJeudi">Jeudi</label></td>
-          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkVendredi" value = "vendredi"'. $vendrediChecked .'><label for="chkVendredi">Vendredi</label></td>
-          <td><input type ="'.APP_Z_CHECKBOX.'" name="chkSamedi" value = "samedi"'.     $samediChecked .'><label for="chkSamedi">Samedi</label></td>
-</tr><tr> <td><input type ="'.APP_Z_CHECKBOX.'" name="chkDimanche" value = "dimanche"'. $dimancheChecked .'><label for="chkDimanche">Dimanche</label></td>
-</tr></table>';
-
-echo '<h3>Options d\'affichage du calendrier<hr></h3>',
-  '<div class="formulaire">',
-  '<form method="POST" action="../php/parametres.php">',
-  '<table border="1" cellpadding="4" cellspacing="0">',
-      fd_form_ligne('Jours affichés', $formJours),
-      fd_form_ligne('Heure minimale', pb_form_heure(6,0)),
-      fd_form_ligne('Heure minimale', pb_form_heure(22,0)),
-      fd_form_ligne(fd_form_input(APP_Z_SUBMIT,'btnValiderCalendrier', 'Mettre à jour'),
-                    fd_form_input(APP_Z_RESET,'btnAnnulerCalendrier', 'Annuler')),
-      '</table></form></div>';
-
-//TODO utiliser valeurs utilisateur heures et déterminer jours
-//TODO utiliser un seul input pour sélectionner l'heure
-
-ob_flush();
-
-echo '<h3>Vos cat&eacutegories<hr></h3>';
+if (isset($erreurs) && (isset($_POST['addCategorie']) || isset($_POST['deleteCategorie']) || isset($_POST['updateCategorie']) ) )
+{
+  foreach ($erreurs as $key => $value)
+  {
+    echo htmlentities($value, ENT_QUOTES, 'UTF-8');
+  }
+}
 
 $sql = "
 SELECT catID, catNom, catCouleurFond, catCouleurBordure, catPublic
@@ -276,7 +347,7 @@ while ($res = mysqli_fetch_assoc($req))
   echo '<input class = "btnEnregistrer" type = "submit" name = "updateCategorie" value = ',$res['catID'],'>';
   echo '<input class = "btnSupprimer" type = "submit" name = "deleteCategorie" value = ',$res['catID'],'>';
 
-  //TODO Mise en page et style boutons
+  //TODO Mise en page
 
   echo '</table></form></div>';
 };
