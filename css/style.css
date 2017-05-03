@@ -453,7 +453,22 @@ strong {
 	color: #FFF;
 }
 
+/* ---------------------------------------------------------------
+	PARAMETRES
+--------------------------------------------------------------- */
 
+.liste-resultats button
+{
+	float: -right;
+	font-size: 12px;
+}
+
+.liste-resultats li
+{
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 /* ---------------------------------------------------------------
 	PARAMETRES

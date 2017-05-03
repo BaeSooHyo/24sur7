@@ -188,8 +188,8 @@ function pb_form_heure($name, $hsel=0, $msel=0){
 * Si l'utilisateur n'est pas authentifié, la fonction fd_exit_session() est invoquée
 */
 function fd_verifie_session(){
-	if (! isset($_SESSION['utiID']) || ! isset($_SESSION['utiNom'])) {
-		fd_exit_session();
+	if (! isset($_SESSION['utiID'])) {
+		fd_redirige('deconnexion.php');
 	}
 }
 

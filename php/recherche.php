@@ -2,14 +2,40 @@
 ob_start();
 include('bibli_24sur7.php');
 fd_bd_connexion();
+session_start();
 fd_verifie_session();
+
+
+if(isset($_POST['btnAbonnement']))
+{
+  $suivi = $_POST['btnAbonnement'];
+  $suiveur = $_SESSION['utiID'];
+
+  $sql ="
+  INSERT INTO suivi (suiIDSuiveur, suiIDSuivi)
+  VALUES ($suiveur, $suivi)";
+
+  $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+}
+elseif (isset($_POST['btnDesabonnement']))
+{
+  $suivi = $_POST['btnDesabonnement'];
+  $suiveur = $_SESSION['utiID'];
+  $sql = "
+  DELETE
+  FROM suivi
+  WHERE suiIDSuivi = $suivi
+  AND suiIDSuiveur = $suiveur
+  ";
+  $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+
+}
 
 if (!isset($_POST['btnRechercher']))
 {
 	// On est dans un premier affichage de la page.
 	// => On intialise les zones de saisie.
   $motsCles = '';
-
 }
 else
 {
@@ -17,6 +43,7 @@ else
 	// => exécution de la recherche
   $motsCles = $_POST['motsCles'];
 }
+
 
 fd_html_head(APP_NOM_APPLICATION.' | Recherche', '../css/style.css');
 fd_html_bandeau(APP_PAGE_RECHERCHE);
@@ -34,7 +61,7 @@ if ($motsCles !== '')
   $motsCles = mysqli_real_escape_string($GLOBALS['bd'], $motsCles);
 
   $sql = "
-  SELECT utiNom, utiMail
+  SELECT utiNom, utiMail, utiID
   FROM utilisateur
   WHERE utiNom LIKE '%$motsCles%' or utiMail LIKE '%$motsCles%'
   ";
@@ -42,19 +69,56 @@ if ($motsCles !== '')
   $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
 
   $i = 0;
-  echo '<ul>';
+  echo '<ul class = "liste-resultats">';
   while ($res = mysqli_fetch_assoc($req))
   {
-    $style = ($i % 2 == 0 ) ? 'background :  #9AC5E7' : '';
-    echo '<li style="'; //TODO insérer style ici
-    echo ($i % 2 == 0 ) ? 'background :  #9AC5E7' : '';
-    echo '"">';
-    echo $res['utiNom'],' ',$res['utiMail'];
-    echo '</li>';
+    if ($res['utiID'] === $_SESSION['utiID'])
+    {
+      $abo = 0;
+    }
+    else
+    {
+      $idSuivi = $res['utiID'];
+      $idSuiveur = $_SESSION['utiID'];
+      $sql = "
+      SELECT suiIDSuivi
+      FROM suivi
+      WHERE suiIDSuivi = $idSuivi
+      AND suiIDSuiveur = $idSuiveur
+      ";
+
+      $req2 = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+      $res2 = mysqli_fetch_assoc($req2);
+
+      if (!$res2){$abo = -1;}
+      else {$abo = 1;}
+    }
+
+    switch ($abo)
+    {
+      case -1:
+        $action = '<form method="POST" action="../php/recherche.php">
+                  <button type = "submit" name = "btnAbonnement" class="btn" value="'.$res['utiID'].'">S\'abonner</button>
+                  </form>';
+        break;
+      case 0:
+        $action = '';
+        break;
+      case 1:
+      $action = '<form method="POST" action="../php/recherche.php">
+                <button type = "submit" name = "btnDesabonnement" class="btn" value="'.$res['utiID'].'">Se désabonner</button>
+                </form>';
+        break;
+    }
+
+
+    echo ($i % 2 == 0 ) ? '<li style = "background: #9AC5E7">' : '<li>';
+    echo '<p>';
+    echo $res['utiNom'],' - ',$res['utiMail'];
+    echo '</p>',$action,'</li>';
     $i++;
 
-    //TODO Requête SQL pour savoir si abonné ou non
-    //TODO Bouton formulaire abonnement/désabonnement
+    //TODO Placer boutons sur la même ligne
   }
   echo '</ul>';
 
