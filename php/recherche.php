@@ -8,7 +8,7 @@ fd_verifie_session();
 
 if(isset($_POST['btnAbonnement']))
 {
-  $suivi = $_POST['btnAbonnement'];
+  $suivi = htmlentities($_POST['btnAbonnement'], ENT_QUOTES, 'UTF-8');
   $suiveur = $_SESSION['utiID'];
 
   $sql ="
@@ -19,7 +19,7 @@ if(isset($_POST['btnAbonnement']))
 }
 elseif (isset($_POST['btnDesabonnement']))
 {
-  $suivi = $_POST['btnDesabonnement'];
+  $suivi = htmlentities($_POST['btnDesabonnement'], ENT_QUOTES, 'UTF-8');
   $suiveur = $_SESSION['utiID'];
   $sql = "
   DELETE
@@ -41,7 +41,7 @@ else
 {
 	// On est dans la phase de soumission du formulaire :
 	// => exécution de la recherche
-  $motsCles = $_POST['motsCles'];
+  $motsCles = htmlentities($_POST['motsCles'], ENT_QUOTES, 'UTF-8');
 }
 
 
@@ -118,7 +118,6 @@ if ($motsCles !== '')
     echo '</p>',$action,'</li>';
     $i++;
     ob_flush();
-    //TODO Placer boutons sur la même ligne
   }
   echo '</ul>';
 
@@ -131,5 +130,7 @@ if (isset($GLOBALS['bd'])){
     // Déconnexion de la base de données
     mysqli_close($GLOBALS['bd']);
 }
+
+ob_end_flush();
 
 ?>

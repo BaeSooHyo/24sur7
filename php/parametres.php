@@ -10,7 +10,6 @@ fd_html_head(APP_NOM_APPLICATION.' | Parametres', '../css/style.css');
 fd_html_bandeau(APP_PAGE_PARAMETRES);
 
 //TODO Gérer erreurs (champs vide)
-//TODO Affichage des erreurs
 
 echo '<section id="bcContenu"><div class="aligncenter">';
 
@@ -110,9 +109,10 @@ if (isset($_POST['btnValiderInfo']))
 
   if (isset($erreurs))
   {
+    echo '<strong>Les erreurs suivantes ont été détectées</strong>';
     foreach ($erreurs as $key => $value)
     {
-      echo htmlentities($value, ENT_QUOTES, 'UTF-8');
+      echo '<br>',htmlentities($value, ENT_QUOTES, 'UTF-8');
     }
   }
 }
@@ -212,9 +212,10 @@ if (isset($_POST['btnValiderCalendrier']))
   }
   else
   {
+    echo '<strong>Les erreurs suivantes ont été détectées</strong>';
     foreach ($erreurs as $key => $value)
     {
-      echo htmlentities($value, ENT_QUOTES, 'UTF-8');
+      echo '<br>',htmlentities($value, ENT_QUOTES, 'UTF-8');
     }
   }
 
@@ -275,7 +276,20 @@ echo '<h3>Vos cat&eacutegories<hr></h3>';
 if (isset($_POST['updateCategorie']))
 {
   $catNomLen = mb_strlen($_POST['catNom'], 'UTF-8');
-  if ( ( (mb_strlen($_POST['catCouleurFond'], 'UTF-8') == 6) && (mb_strlen($_POST['catCouleurBordure'], 'UTF-8') == 6)) && ($catNomLen >= 4 && $catNomLen <= 20))
+  if ($catNomLen < 4 || $catNomLen > 20)
+  {
+    $erreurs[] = 'Le nom de la catégorie doit avoir une longueur comprise entre 4 et 20 caractères';
+  }
+  if(mb_strlen($_POST['catCouleurFond'], 'UTF-8') != 6)
+  {
+    $erreurs[] = 'La couleur de fond doit être un code HEXA composé de 6 digits';
+  }
+  if(mb_strlen($_POST['catCouleurBordure'], 'UTF-8') != 6)
+  {
+    $erreurs[] = 'La couleur de bordure doit être un code HEXA composé de 6 digits';
+  }
+
+  if (!isset($erreurs))
   {
     $catNom = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catNom']);
     $catCouleurFond = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurFond']);
@@ -305,25 +319,41 @@ if (isset($_POST['deleteCategorie']))
 
 if (isset($_POST['addCategorie']))
 {
-  $catNom = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catNom']);
-  $catCouleurFond = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurFond']);
-  $catCouleurBordure = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurBordure']);
-  $catPublic = (isset($_POST['catPublic'])) ? '1' : '0';
-  $sql = "
-  INSERT INTO categorie(catNom, catCouleurFond, catCouleurBordure, catIDUtilisateur, catPublic)
-  VALUES ('$catNom', $catCouleurFond, $catCouleurBordure,".$_SESSION['utiID'].", $catPublic)
-  ";
+  $catNomLen = mb_strlen($_POST['catNom'], 'UTF-8');
+  if ($catNomLen < 4 || $catNomLen > 20)
+  {
+    $erreurs[] = 'Le nom de la catégorie doit avoir une longueur comprise entre 4 et 20 caractères';
+  }
+  if(mb_strlen($_POST['catCouleurFond'], 'UTF-8') != 6)
+  {
+    $erreurs[] = 'La couleur de fond doit être un code HEXA composé de 6 digits';
+  }
+  if(mb_strlen($_POST['catCouleurBordure'], 'UTF-8') != 6)
+  {
+    $erreurs[] = 'La couleur de bordure doit être un code HEXA composé de 6 digits';
+  }
 
-  echo $sql;
+  if (!isset($erreurs))
+  {
+    $catNom = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catNom']);
+    $catCouleurFond = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurFond']);
+    $catCouleurBordure = mysqli_real_escape_string($GLOBALS['bd'], $_POST['catCouleurBordure']);
+    $catPublic = (isset($_POST['catPublic'])) ? '1' : '0';
+    $sql = "
+    INSERT INTO categorie(catNom, catCouleurFond, catCouleurBordure, catIDUtilisateur, catPublic)
+    VALUES ('$catNom', '$catCouleurFond', '$catCouleurBordure',".$_SESSION['utiID'].", $catPublic)
+    ";
 
-  $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+    $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+  }
 }
 
 if (isset($erreurs) && (isset($_POST['addCategorie']) || isset($_POST['deleteCategorie']) || isset($_POST['updateCategorie']) ) )
 {
+  echo '<strong>Les erreurs suivantes ont été détectées</strong>';
   foreach ($erreurs as $key => $value)
   {
-    echo htmlentities($value, ENT_QUOTES, 'UTF-8');
+    echo '<br>',htmlentities($value, ENT_QUOTES, 'UTF-8');
   }
 }
 
@@ -364,7 +394,6 @@ echo '<br>';
 
 echo '</div></section>';
 fd_html_pied();
-ob_flush();
 ob_end_flush();
 
 ?>

@@ -10,8 +10,8 @@ fd_html_bandeau(APP_PAGE_ABONNEMENTS);
 echo '<section id="bcContenu"><div class="aligncenter">';
 if (isset($_POST['btnDesabonnement']))
 {
-  $suivi = $_POST['btnDesabonnement'];
-  $suiveur = $_SESSION['utiID'];
+  $suivi = mysqli_real_escape_string($GLOBALS['bd'], $_POST['btnDesabonnement']);
+  $suiveur = mysqli_real_escape_string($GLOBALS['bd'], $_SESSION['utiID']);
   $sql = "
   DELETE
   FROM suivi
@@ -49,7 +49,6 @@ while ($res = mysqli_fetch_assoc($req))
 
 echo '</div></section>';
 fd_html_pied();
-ob_flush();
 ob_end_flush();
 
 ?>

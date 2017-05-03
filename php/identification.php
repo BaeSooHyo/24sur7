@@ -135,5 +135,6 @@ $size = 40;
 	'</main>';
 //On affiche le pied de page
 fd_html_pied();
+ob_end_flush();
 
 ?>
