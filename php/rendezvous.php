@@ -205,7 +205,72 @@ fd_html_bandeau('x');
 echo '<main>';
 echo '<section id="bcContenu"><div class="aligncenter"><section id="bcGauche">';
 fd_html_calendrier();
-//TODO Catégorie
+
+echo '<section id="categories">
+  <h3>Vos agendas</h3>
+  <p>
+    <a href="agenda.php?utiIDagenda=',$_SESSION['utiID'],'">Agenda de ',$_SESSION['utiNom'],'</a>
+  </p>
+  <ul id="mine">';
+
+$sql = "
+SELECT catID, catNom, catCouleurFond, catCouleurBordure, catPublic
+FROM categorie
+WHERE catIDUtilisateur = ".$_SESSION['utiID'];
+
+$req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+
+while ($res = mysqli_fetch_assoc($req))
+{
+    echo  '<li>
+          <div class = "categorie" style = "border: solid 2px #',$res['catCouleurBordure'],';	background-color: #',$res['catCouleurFond'],';" ></div>',
+    $res['catNom'],
+    '</li>';
+}
+echo '</ul>';
+
+echo '<h2>Agendas suivis : </h2>';
+
+$sql ='
+SELECT utiNom, suiIDSuivi, catNom, catCouleurFond, catCouleurBordure
+FROM suivi, categorie, utilisateur
+WHERE suiIDSuivi = catIDUtilisateur
+AND suiIDSuivi = utiID
+AND suiIDSuiveur = '. $_SESSION['utiID'] .'
+ORDER BY suiIDSuivi, catNom
+';
+
+$req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+
+
+$nom = 0;
+echo '<ul>
+';
+while ($res = mysqli_fetch_assoc($req))
+{
+    if ($res['utiNom'] !== $nom)
+    {
+        if ($nom !== 0)
+        {
+            echo'
+</ul>
+</li>
+';}
+        $nom = $res['utiNom'];
+        $id = $res['suiIDSuivi'];
+
+        echo"
+  <li><a href = \"agenda.php?utiIDagenda=$id\">$nom</a>
+  <ul>
+  ";
+    }
+    echo '
+  <li>
+    <div class = "categorie" style = "border: solid 2px #',$res['catCouleurBordure'],';	background-color: #',$res['catCouleurFond'],';" ></div>',
+    $res['catNom'],'
+  </li>';
+}
+
 echo '</section>';
 
 
