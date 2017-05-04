@@ -11,10 +11,6 @@ echo '<section id="bcContenu"><div class="aligncenter">';
 echo '<aside id="bcGauche">';
 
 
-//$_SESSION['jourCourantAgenda']
-//$_SESSION['jourCourantCalendrier']
-
-
 if(isset($_GET['jourCourantAgenda']))
 {
   $jourCourantAgenda = $_GET['jourCourantAgenda'];
@@ -22,12 +18,24 @@ if(isset($_GET['jourCourantAgenda']))
 }
 else
 {
-  list($JJ, $MM, $AA) = explode('-', date('j-n-Y'));
-  $jourCourantAgenda = ($AA * 10000) + ($MM * 100) + $JJ;
+  if (isset($_SESSION['jourCourantAgenda']))
+  {
+    $jourCourantAgenda = $_SESSION['jourCourantAgenda'];
+  }
+  else
+  {
+    list($JJ, $MM, $AA) = explode('-', date('j-n-Y'));
+    $jourCourantAgenda = ($AA * 10000) + ($MM * 100) + $JJ;
+  }
 }
 if (isset($_GET['sem']))
 {
-  echo $_GET['sem'];
+  $jour = $jourCourantAgenda % 100;
+  $mois = (($jourCourantAgenda % 10000 ) / 100);
+  $annee = ($jourCourantAgenda / 10000);
+  $t = mktime(0,0,0,$mois, $jour+($_GET['sem']*7), $annee);
+  list($JJ, $MM, $AA) = explode('-', date('j-n-Y', $t));
+  $jourCourantAgenda = ($AA * 10000) + ($MM * 100) + $JJ;
 }
 
 $_SESSION['jourCourantAgenda'] = $jourCourantAgenda;
