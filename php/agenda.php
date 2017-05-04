@@ -346,7 +346,7 @@ for ($j = 0; $j < 7; $j++)
 
   for ($i = $_SESSION['utiHeureMin'] ; $i < $_SESSION['utiHeureMax']; $i++)
   {
-    echo '<a href="rendezvous?php?jour=',$jour,'&heure=',$i,'00"></a>';
+    echo '<a href="rendezvous.php?jour=',$jour,'&heure=',$i,'00"></a>';
   }
   echo '<a href="#" class="case-heure-bas"></a>';
 
