@@ -112,7 +112,7 @@ if ($motsCles !== '')
     }
 
 
-    echo ($i % 2 == 0 ) ? '<li style = "background: #9AC5E7">' : '<li>';
+    echo ($i % 2 == 0 ) ? '<li style = "background: #9AC5E7">' : '<li style = "background: #E5ECF6">';
     echo '<p>';
     echo $res['utiNom'],' - ',$res['utiMail'];
     echo '</p>',$action,'</li>';

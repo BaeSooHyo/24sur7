@@ -33,13 +33,14 @@ AND suiIDSuiveur = $utiID
 
 $i = 0;
 $req = mysqli_query($GLOBALS['bd'], $sql) or fd_bd_erreur($sql);
+echo '<h3>Liste de vos abonnements<hr></h3>';
 echo '<ul class = "liste-resultats">';
 while ($res = mysqli_fetch_assoc($req))
 {
   $action = '<form method="POST" action="../php/abonnements.php">
             <button type = "submit" name = "btnDesabonnement" class="btn" value="'.$res['suiIDSuivi'].'">Se désabonner</button>
             </form>';
-  echo ($i % 2 == 0 ) ? '<li style = "background: #9AC5E7">' : '<li>';
+  echo ($i % 2 == 0 ) ? '<li style = "background: #9AC5E7">' : '<li style = "background: #E5ECF6">';
   echo '<p>';
   echo $res['utiNom'],' - ',$res['utiMail'];
   echo '</p>',$action,'</li>';

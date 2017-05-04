@@ -485,9 +485,9 @@ function fd_html_calendrier($jour = 0, $mois = 0, $annee = 0) {
 	// Affichage du titre du calendrier
 	echo '<section id="calendrier">',
 	'<p>',
-	'<a href="#?sem=-1" class="flechegauche"><img src="../images/fleche_gauche.png" alt="picto fleche gauche"></a>',
+	'<a href="agenda.php?jourCourantCalendrier=',($annee * 10000) + ($mois * 100) + $jour,'&mois=-1" class="flechegauche"><img src="../images/fleche_gauche.png" alt="picto fleche gauche"></a>',
 	fd_get_mois($mois), ' ', $annee,
-	'<a href="#?sem=1" class="flechedroite"><img src="../images/fleche_droite.png" alt="picto fleche droite"></a>',
+	'<a href="agenda.php?jourCourantCalendrier=',($annee * 10000) + ($mois * 100) + $jour,'&mois=1" class="flechedroite"><img src="../images/fleche_droite.png" alt="picto fleche droite"></a>',
 	'</p>';
 
 	// Affichage des jours du calendrier
@@ -505,6 +505,9 @@ function fd_html_calendrier($jour = 0, $mois = 0, $annee = 0) {
 			echo '<tr>';
 		}
 		for($i = 1; $i <= 7 ; $i++){
+
+			$cibleLien = 'agenda.php?jourCourantAgenda='.$annee.$mois.$jourAff;
+
 			if ($jourAff == $jourAujourdhui) {
 				echo '<td class="aujourdHui">';
 			} elseif ($jourAff == $jourCourant) {
@@ -513,10 +516,10 @@ function fd_html_calendrier($jour = 0, $mois = 0, $annee = 0) {
 				echo '<td>';
 			}
 			if ($moisAff == $mois){
-              echo '<a href="#">', $jourAff, '</a></td>';
+              echo '<a href="',$cibleLien,'">', $jourAff, '</a></td>';
             }
             else{
-              echo '<a class="lienJourHorsMois" href="#">', $jourAff, '</a></td>';
+              echo '<a class="lienJourHorsMois" href="',$cibleLien,'">', $jourAff, '</a></td>';
             }
 			$jourAff++;
 			if ($jourAff > $dernierJourMoisAff){

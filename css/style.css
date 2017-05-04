@@ -456,7 +456,25 @@ strong {
 ul li .categorie
 {
 	background-color: #565656;
+	float: left;
 }
+
+ul ul
+{
+	margin-left: 15px;
+}
+
+#categories p
+{
+	text-align: left;
+	margin: 0px 0px 0px 0px;
+}
+
+.categorie
+{
+	background-color: #000;
+}
+
 
 /* ---------------------------------------------------------------
 	PARAMETRES

@@ -1,7 +1,7 @@
 <?php
 
 /**
-* 
+*
 *Page d'identification
 */
 // Bufferisation des sorties
@@ -25,16 +25,16 @@ fd_bd_connexion();
 
 		//On fait les v&eacute;rifications des donn&eacute;es
 		$er = array();
-		$Libelle = $_POST['txtLibelle'];
-		$dateD = $_POST['selDate_d'];
-		$dateM = $_POST['selDate_m'];
-		$dateY = $_POST['selDate_y'];
-		$Categorie = $_POST['selCat'];
-		$HDebutH = $_POST['selHDebut_H'];
-		$HDebutM = $_POST['selHDebut_M'];
-		$HFinH = $_POST['selHFin_H'];
-		$HFinM = $_POST['selHFin_M'];
-		$EvJournee = $_POST['chkJournee'];
+		$Libelle = $_GET['txtLibelle'];
+		$dateD = $_GET['selDate_d'];
+		$dateM = $_GET['selDate_m'];
+		$dateY = $_GET['selDate_y'];
+		$Categorie = $_GET['selCat'];
+		$HDebutH = $_GET['selHDebut_H'];
+		$HDebutM = $_GET['selHDebut_M'];
+		$HFinH = $_GET['selHFin_H'];
+		$HFinM = $_GET['selHFin_M'];
+		$EvJournee = $_GET['chkJournee'];
 
         //Journée entière présente ?
         if ($EvJournee==1)
@@ -51,16 +51,16 @@ fd_bd_connexion();
 		{
 			array_push( $er, "La date n'est pas valide <br>");
 		}
-		
+
 		//Libelle
-		if ( (strlen($Libelle)) == 0) 
+		if ( (strlen($Libelle)) == 0)
 		{
 			array_push($er, "Le libell&eacute; est obligatoire<br>");
 		}
 
 		$testDuree = (((int)$HFinM)+(((int)$HFinH)*60))-(((int)$HDebutM)+(((int)$HDebutH)*60)) ;
 
-		//On v&eacute;rifie la dur&eacute;e du rendez-vous 
+		//On v&eacute;rifie la dur&eacute;e du rendez-vous
 		if ( $testDuree < 15 )
 		{
 			array_push($er, "le rendez-vous doit durer au moins 15 minutes<br>");
@@ -129,20 +129,20 @@ fd_bd_connexion();
 	}
 
 	$erreurs = array();
-	
-	
-	if($_POST['btnAjouter'])
+
+
+	if(isset($_GET['btnAjouter']))
 	{
-		$Libelle = $_POST['txtLibelle'];
-		$dateD = $_POST['selDate_j'];
-		$dateM = $_POST['selDate_m'];
-		$dateY = $_POST['selDate_a'];
-		$Categorie = $_POST['selCat'];
-		$HDebutH = $_POST['selHDebut_H'];
-		$HDebutM = $_POST['selHDebut_M'];
-		$HFinH = $_POST['selHFin_H'];
-		$HFinM = $_POST['selHFin_M'];
-		$EvJournee = $_POST['chkJournee'];
+		$Libelle = $_GET['txtLibelle'];
+		$dateD = $_GET['selDate_j'];
+		$dateM = $_GET['selDate_m'];
+		$dateY = $_GET['selDate_a'];
+		$Categorie = $_GET['selCat'];
+		$HDebutH = $_GET['selHDebut_H'];
+		$HDebutM = $_GET['selHDebut_M'];
+		$HFinH = $_GET['selHFin_H'];
+		$HFinM = $_GET['selHFin_M'];
+		$EvJournee = $_GET['chkJournee'];
 		$erreurs = pbl_verif_rdv();
 
 		//Journée entière présente ?
@@ -155,7 +155,7 @@ fd_bd_connexion();
 		}
 
 
-		if ( $erreurs == NULL) 
+		if ( $erreurs == NULL)
 		{
 			$dateF=($dateY . $dateM . $dateD);
 			$dateF=(int)$dateF;
@@ -176,9 +176,9 @@ fd_bd_connexion();
 
 		}
 
-		
+
 	}
-	else 
+	else
 	{
 		$Libelle ='';
 		$dateD = '21';
@@ -311,9 +311,9 @@ $r .= '</select>';
 				'</table>',
 				'</div>',
 			'</form>';
-			
+
 	//Si il y a des erreurs, on les affiches apres le formulaire
-	if ( $erreurs != NULL) 
+	if ( $erreurs != NULL)
 	{
 		//Affichage du d&eacute;but de la page html
 		$tailleA = count($erreurs);
@@ -328,8 +328,8 @@ $r .= '</select>';
 	//On affiche les phrases apr�s le formulaire
 	echo 	 '</section> <br><p id="lienRDV"><a href="agenda.php">', "Retour &agrave; l'agenda</a></p>",
 		'</section> </div>',
-	'</main>';	
-	
+	'</main>';
+
 //On affiche le pied de page
 fd_html_pied();
 
